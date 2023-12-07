@@ -8,7 +8,10 @@ const Post = () => {
   const [selam, setSelam] = useState<Selamla>({ selam: "selamın aleyküm" });
 
   const selamla = () => {
-    setSelam({ selam: "aleyküm selam" });
+    setSelam({
+      selam:
+        selam.selam === "aleyküm selam" ? "selamın aleyküm" : "aleyküm selam",
+    });
   };
 
   return (
