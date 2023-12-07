@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 import "./header.css";
 
-const HeaderComponent: React.FC = () => {
+const Header: React.FC = () => {
   return (
     <div className="header">
       <div className="logo">
@@ -20,4 +20,4 @@ const HeaderComponent: React.FC = () => {
   );
 };
 
-export default HeaderComponent;
+export default Header;

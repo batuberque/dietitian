@@ -2,7 +2,7 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Post from "./components/Post/Post";
-import HeaderComponent from "./components/Header/HeaderComponent";
+import Header from "./components/Header/Header";
 import Home from "./components/Home/Home";
 
 const queryClient = new QueryClient({
@@ -19,7 +19,7 @@ const App = () => {
     <div>
       <BrowserRouter>
         <QueryClientProvider client={queryClient}>
-          <HeaderComponent />
+          <Header />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/post" element={<Post />} />
