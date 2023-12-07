@@ -1,0 +1,21 @@
+version: "3.8"
+services:
+  frontend:
+    build: frontend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - 5173:5173
+  backend:
+    build: backend
+    environment: 
+      - MONGODB_CONNECTION_STRING=mongodb://mongodb/denemeapp
+    ports: 
+      - 3005:3005
+  mongodb:
+    image: mongo:4.2
+    ports:
+      - 27017:27017
+    volumes:
+      - ./data:/data/db
