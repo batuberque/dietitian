@@ -1,26 +1,19 @@
 import { createRoot } from "react-dom/client";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import Post from "./Post";
-
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: Infinity,
-      cacheTime: Infinity,
-    },
-  },
-});
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { queryClient } from "./services/query-client";
+import Post from "./components/Post/Post";
+import Header from "./components/Header/Header";
+import Home from "./components/Home/Home";
 
 const App = () => {
   return (
     <div>
       <BrowserRouter>
         <QueryClientProvider client={queryClient}>
-          <header>
-            <Link to="/post">Adopt Me!</Link>
-          </header>
+          <Header />
           <Routes>
+            <Route path="/" element={<Home />} />
             <Route path="/post" element={<Post />} />
           </Routes>
         </QueryClientProvider>
