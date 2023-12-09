@@ -1,12 +1,7 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import {
-  Post,
-  fetchPosts,
-  addPost,
-  updatePost,
-  deletePost,
-} from '../../services/queries';
+import { Post, fetchPosts, addPost, deletePost } from '../../services/queries';
 
 const PostComponent: React.FC = () => {
   const queryClient = useQueryClient();
@@ -16,9 +11,10 @@ const PostComponent: React.FC = () => {
   const { data: post, isLoading } = useQuery(['post'], fetchPosts);
 
   const addMutation = useMutation(addPost, {
-    onSuccess: () => {
+    onSuccess: (data) => {
       void queryClient.invalidateQueries(['post']);
       setNewPost({ title: '', content: '' });
+      alert(`Post added with ID: ${data._id}`);
     },
   });
 
@@ -58,6 +54,9 @@ const PostComponent: React.FC = () => {
       {post?.map((post) => (
         <div key={post._id}>
           <h3>{post.title}</h3>
+          <h3>
+            <a href={`/post/${post._id}`}>{post.title}</a>
+          </h3>
           <p>{post.content}</p>
           <button onClick={() => handleEditPost(post)}>Edit</button>
           <button onClick={() => deleteMutation.mutate(post._id!)}>
