@@ -12,6 +12,9 @@ services:
       - VITE_REACT_APP_BACKEND_URL=http://localhost:3005
     networks:
       - app-network
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
 
   backend:
     image: dietitian-backend
