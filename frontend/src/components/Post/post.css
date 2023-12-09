@@ -1,0 +1,20 @@
+.first-div {
+    justify-content: center;
+    align-items: center;
+    padding: 2em;
+}
+
+.text {
+    justify-content: center;
+    align-items: center;
+}
+
+.content {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.button {
+    justify-content: end;
+    align-items: end;
+}
