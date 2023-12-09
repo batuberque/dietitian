@@ -1,18 +1,18 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
-import "./header.css";
+import './header.css';
 
 const Header: React.FC = () => {
   return (
     <div className="header">
       <div className="logo">
         <span>
-          <Link to={"/"}>EIC SAYFASI</Link>
+          <Link to={'/'}>DİYETİSYEN UYGULAMASI</Link>
         </span>
       </div>
       <div className="titles">
         <span>
-          <Link to={"/post"}>Postlar</Link>
+          <Link to={'/post'}>Postlar</Link>
         </span>
         <span>Sayfalar</span>
       </div>
