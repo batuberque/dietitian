@@ -5,6 +5,7 @@ import { queryClient } from './services/query-client';
 import Post from './components/Post/Post';
 import Header from './components/Header/Header';
 import Home from './components/Home/Home';
+import PostDetail from './components/Post/PostDetail';
 
 const App = () => {
   return (
@@ -15,6 +16,8 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/post" element={<Post />} />
+            <Route path="/post/:postId" element={<PostDetail />} />
+            <Route path="/post/:postId/edit" element={<h1>SHOW EDIT</h1>} />
           </Routes>
         </QueryClientProvider>
       </BrowserRouter>

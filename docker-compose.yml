@@ -1,7 +1,9 @@
 version: "3.8"
 services:
   frontend:
-    build: ./frontend
+    image: dietitian-frontend
+    build: 
+      context: ./frontend
     ports:
       - "5173:5173"
     depends_on:
@@ -12,7 +14,10 @@ services:
       - app-network
 
   backend:
-    build: ./backend
+    image: dietitian-backend
+    build: 
+      context: ./backend
+      dockerfile: dev.Dockerfile
     ports:
       - "3005:3005"
     environment:
