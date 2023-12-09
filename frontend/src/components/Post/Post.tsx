@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { fetchPosts, addPost, deletePost } from '../../services/queries';
+import './post.css';
 
 const PostComponent: React.FC = () => {
   const queryClient = useQueryClient();
@@ -28,16 +29,18 @@ const PostComponent: React.FC = () => {
   if (isLoading) return <div>Loading...</div>;
 
   return (
-    <div>
+    <div className="first-div">
       <input
+        className="text"
         type="text"
-        placeholder="Title"
+        placeholder="Başlık"
         value={newPost.title}
         onChange={(e) => setNewPost({ ...newPost, title: e.target.value })}
       />
       <input
+        className="content"
         type="text"
-        placeholder="Content"
+        placeholder="İçerik"
         value={newPost.content}
         onChange={(e) => setNewPost({ ...newPost, content: e.target.value })}
       />
@@ -51,7 +54,10 @@ const PostComponent: React.FC = () => {
           </h3>
           <p>{post.content}</p>
           <button>Edit</button>
-          <button onClick={() => deleteMutation.mutate(post._id!)}>
+          <button
+            className="button"
+            onClick={() => deleteMutation.mutate(post._id!)}
+          >
             Delete
           </button>
         </div>
