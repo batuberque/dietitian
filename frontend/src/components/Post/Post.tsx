@@ -8,7 +8,7 @@ import {
   deletePost,
 } from '../../services/queries';
 
-const Post: React.FC = () => {
+const PostComponent: React.FC = () => {
   const queryClient = useQueryClient();
   const [newPost, setNewPost] = useState({ title: '', content: '' });
   const [editingPost, setEditingPost] = useState<Post | null>(null);
@@ -22,23 +22,12 @@ const Post: React.FC = () => {
     },
   });
 
-  const updateMutation = useMutation(updatePost, {
-    onSuccess: () => {
-      void queryClient.invalidateQueries(['post']);
-      setEditingPost(null);
-    },
-  });
-
   const deleteMutation = useMutation(deletePost, {
     onSuccess: () => queryClient.invalidateQueries(['post']),
   });
 
   const handleAddOrUpdatePost = () => {
-    if (editingPost) {
-      updateMutation.mutate({ postId: editingPost._id!, updatedData: newPost });
-    } else {
-      addMutation.mutate(newPost);
-    }
+    addMutation.mutate(newPost);
   };
 
   const handleEditPost = (post: Post) => {
@@ -80,4 +69,4 @@ const Post: React.FC = () => {
   );
 };
 
-export default Post;
+export default PostComponent;

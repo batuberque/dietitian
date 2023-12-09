@@ -16,7 +16,7 @@ services:
     ports:
       - "3005:3005"
     environment:
-      - MONGODB_CONNECTION_STRING=mongodb://mongodb/denemeapp
+      - MONGODB_CONNECTION_STRING=mongodb://mongodb/dietitian
     depends_on:
       - mongodb
     networks:
