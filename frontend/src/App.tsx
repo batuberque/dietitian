@@ -7,6 +7,7 @@ import Post from './components/Post/Post';
 import Header from './components/Header/Header';
 import Home from './components/Home/Home';
 import PostDetail from './components/Post/PostDetail';
+import Footer from './components/Footer/Footer';
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
           <Route path="/post/:postId" element={<PostDetail />} />
           <Route path="/post/:postId/edit" element={<h1>SHOW EDIT</h1>} />
         </Routes>
+        <Footer />
       </QueryClientProvider>
     </BrowserRouter>
   );
