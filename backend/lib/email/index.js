@@ -2,18 +2,26 @@ const nodemailer = require("nodemailer");
 
 let transporter = nodemailer.createTransport({
   service: "gmail",
+  port: 465,
+  secure: true,
+  logger: true,
+  debug: true,
   auth: {
-    user: "your-email@gmail.com",
-    pass: "your-password",
+    user: process.env.TARGET_EMAIL,
+    pass: process.env.TARGET_EMAIL_PASS,
+  },
+  tls: {
+    rejectUnauthorized: true,
   },
 });
+async function sendEmail(fromEmail, subject, userMessage) {
+  let emailContent = `Gönderen: ${fromEmail}\nMesaj: ${userMessage}`;
 
-async function sendEmail(to, subject, text) {
   let mailOptions = {
-    from: "your-email@gmail.com",
-    to: to,
+    from: process.env.TARGET_EMAIL,
+    to: process.env.TARGET_EMAIL,
     subject: subject,
-    text: text,
+    text: emailContent,
   };
 
   try {

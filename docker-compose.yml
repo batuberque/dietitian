@@ -26,6 +26,8 @@ services:
       - "3005:3005"
     environment:
       - MONGODB_CONNECTION_STRING=mongodb://mongodb/dietitian
+    env_file:
+      - ./backend/.env
     depends_on:
       - mongodb
     networks:
