@@ -6,6 +6,12 @@ export interface Post {
   createdAt?: Date;
 }
 
+export interface Email {
+  email: string;
+  subject: string;
+  message: string;
+}
+
 export const fetchPosts = async (): Promise<Post[]> => {
   const response = await axiosInstance.get<Post[]>('/post');
   return response.data;
@@ -34,4 +40,19 @@ export const updatePost = async (
 
 export const deletePost = async (postId: string): Promise<void> => {
   await axiosInstance.delete(`/post/${postId}`);
+};
+
+export const fetchEmails = async (): Promise<Email[]> => {
+  const response = await axiosInstance.get<Email[]>('/emails');
+  return response.data;
+};
+
+export const sendEmail = async (emailData: Email): Promise<string> => {
+  const response = await axiosInstance.post<string>('/contact', emailData);
+  return response.data;
+};
+
+export const deleteEmail = async (email: string): Promise<string> => {
+  const response = await axiosInstance.delete<string>(`/${email}`);
+  return response.data;
 };
