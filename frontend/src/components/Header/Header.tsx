@@ -3,9 +3,10 @@ import { Link, useLocation } from 'react-router-dom';
 import { renderIcon } from '../../lib/ui/IconUtils';
 
 const Header: React.FC = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState<string | boolean>(false);
   const location = useLocation();
   const menuRef = useRef<HTMLElement>(null);
+
+  const [isMenuOpen, setIsMenuOpen] = useState<string | boolean>(false);
 
   const handleClickOutside = useCallback((event: MouseEvent) => {
     if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
@@ -61,10 +62,16 @@ const Header: React.FC = () => {
                 VİZYONUMUZ
               </Link>
               <Link
-                to={'/post'}
+                to={'/project'}
                 className="block mt-4 md:inline-block md:mt-0 text-gray-600 hover:text-gray-800 mr-4 shadow-sm font-serif"
               >
-                POSTLAR
+                PROJELER
+              </Link>
+              <Link
+                to={'/service'}
+                className="block mt-4 md:inline-block md:mt-0 text-gray-600 hover:text-gray-800 mr-4 shadow-sm font-serif"
+              >
+                HİZMETLERİMİZ
               </Link>
               <Link
                 to={'/contact'}
