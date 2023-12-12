@@ -1,31 +1,82 @@
-import { Link } from 'react-router-dom';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { renderIcon } from '../../lib/ui/IconUtils';
 
 const Header: React.FC = () => {
-  return (
-    <div className="header bg-gray-100 p-4 shadow-md fixed top-0 w-full">
-      <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
-        <div className="logo mb-4 md:mb-0">
-          <span className="text-xl font-bold text-gray-700">
-            <Link to={'/'}>TORA VİNÇ & İNŞAAT</Link>
-          </span>
-        </div>
+  const [isMenuOpen, setIsMenuOpen] = useState<string | boolean>(false);
+  const location = useLocation();
+  const menuRef = useRef<HTMLElement>(null);
 
-        <div className="titles flex flex-col md:flex-row gap-4">
-          <span className="text-lg text-gray-600 hover:text-gray-800 transition duration-300">
-            <Link to={'/'}>ANA SAYFA</Link>
-          </span>
-          <span className="text-lg text-gray-600 hover:text-gray-800 transition duration-300">
-            <Link to={'/vision'}>VİZYONUMUZ</Link>
-          </span>
-          <span className="text-lg text-gray-600 hover:text-gray-800 transition duration-300">
-            <Link to={'/post'}>POSTLAR</Link>
-          </span>
-          <span className="text-lg text-gray-600 hover:text-gray-800 transition duration-300">
-            <Link to={'/contact'}>İLETİŞİM</Link>
-          </span>
+  const handleClickOutside = useCallback((event: MouseEvent) => {
+    if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+      setIsMenuOpen(false);
+    }
+  }, []);
+
+  const toggleMenu = () => {
+    if (!isMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [location]);
+
+  return (
+    <header ref={menuRef}>
+      <div className="header bg-gray-100 p-4 shadow-md fixed top-0 w-full">
+        <div className="container mx-auto flex flex-wrap justify-between items-center">
+          <div className="logo">
+            <span className="text-xl font-bold text-gray-700 shadow-sm font-serif">
+              <Link to={'/'}>TORA VİNÇ & İNŞAAT</Link>
+            </span>
+          </div>
+
+          <div className="md:hidden">
+            <button className="text-2xl" onClick={toggleMenu}>
+              {renderIcon('TfiAlignJustify')}
+            </button>
+          </div>
+
+          <div
+            className={`w-full md:flex md:items-center md:w-auto ${
+              !isMenuOpen ? 'hidden' : ''
+            }`}
+          >
+            <div className="text-md md:flex-grow">
+              <Link
+                to={'/'}
+                className="block mt-4 md:inline-block md:mt-0 text-gray-600 hover:text-gray-800 mr-4 shadow-sm font-serif"
+              >
+                ANA SAYFA
+              </Link>
+              <Link
+                to={'/vision'}
+                className="block mt-4 md:inline-block md:mt-0 text-gray-600 hover:text-gray-800 mr-4 shadow-sm font-serif"
+              >
+                VİZYONUMUZ
+              </Link>
+              <Link
+                to={'/post'}
+                className="block mt-4 md:inline-block md:mt-0 text-gray-600 hover:text-gray-800 mr-4 shadow-sm font-serif"
+              >
+                POSTLAR
+              </Link>
+              <Link
+                to={'/contact'}
+                className="block mt-4 md:inline-block md:mt-0 text-gray-600 hover:text-gray-800 shadow-sm font-serif"
+              >
+                İLETİŞİM
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </header>
   );
 };
 

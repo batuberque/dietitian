@@ -1,8 +1,12 @@
 const Home = () => {
   return (
-    <div className="flex justify-center items-start h-1/2">
-      <div className="text-3xl pt-5">Diyetisyen Uygulamasına Hoşgeldiniz</div>
-    </div>
+    <body>
+      <div className="flex text-grey mt-48">
+        <div className="flex text-6xl font-semibold leading-normal">
+          TORA VİNÇ İNŞAAT
+        </div>
+      </div>
+    </body>
   );
 };
 
