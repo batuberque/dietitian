@@ -3,12 +3,13 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from './services/query-client';
-import Post from './components/Post/Post';
 import Header from './components/Header/Header';
 import Home from './components/Home/Home';
-import PostDetail from './components/Post/PostDetail';
 import Footer from './components/Footer/Footer';
 import ContactUs from './components/Contact/Contact';
+import Project from './components/Project/Project';
+import Service from './components/Service/Service';
+import Vision from './components/Vision/Vision';
 
 const App = () => {
   return (
@@ -17,9 +18,9 @@ const App = () => {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/post" element={<Post />} />
-          <Route path="/post/:postId" element={<PostDetail />} />
-          <Route path="/post/:postId/edit" element={<h1>SHOW EDIT</h1>} />
+          <Route path="/vision" element={<Vision />} />
+          <Route path="/project" element={<Project />} />
+          <Route path="/service" element={<Service />} />
           <Route path="/contact" element={<ContactUs />} />
         </Routes>
         <Footer />

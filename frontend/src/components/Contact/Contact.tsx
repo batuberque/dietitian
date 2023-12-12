@@ -1,7 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import { Email, sendEmail } from '../../services/queries';
-import { renderIcon } from '../../lib/ui/IconUtils';
 
 const ContactUs: React.FC = () => {
   const [emailData, setEmailData] = useState<Email>({
@@ -17,7 +16,7 @@ const ContactUs: React.FC = () => {
     e.preventDefault();
     sendEmailMutation(emailData, {
       onSuccess: () => {
-        alert('Email sent successfully');
+        alert('E-mail başarılı bir şekilde gönderildi.');
       },
     });
     console.log('eeeee', emailData);
