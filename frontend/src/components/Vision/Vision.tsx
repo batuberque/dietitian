@@ -1,5 +1,7 @@
+import translation from '../transition';
+
 const Vision = () => {
-  return <div className="max-w-md mx-auto mt-20 space-y-4">HİZMETLERİMİZ</div>;
+  return <div className="max-w-md mx-auto mt-20 space-y-4">VİZYONUMUZ</div>;
 };
 
-export default Vision;
+export default translation(Vision);
