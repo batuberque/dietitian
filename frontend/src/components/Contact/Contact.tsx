@@ -1,6 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import { Email, sendEmail } from '../../services/queries';
+import translation from '../transition';
 
 const ContactUs: React.FC = () => {
   const [emailData, setEmailData] = useState<Email>({
@@ -67,4 +68,4 @@ const ContactUs: React.FC = () => {
   );
 };
 
-export default ContactUs;
+export default translation(ContactUs);
