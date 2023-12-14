@@ -5,6 +5,7 @@ import Vision from './Vision/Vision';
 import Project from './Project/Project';
 import Service from './Service/Service';
 import ContactUs from './Contact/Contact';
+import NotFound from './NotFound/NotFound';
 
 const AnimatedRouter = () => {
   const location = useLocation();
@@ -17,6 +18,7 @@ const AnimatedRouter = () => {
         <Route path="/project" element={<Project />} />
         <Route path="/service" element={<Service />} />
         <Route path="/contact" element={<ContactUs />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </AnimatePresence>
   );

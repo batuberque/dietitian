@@ -2,7 +2,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { renderIcon } from '../../lib/ui/IconUtils';
-import useScrollPosition from '../../hooks/useScrollPosition';
+import useScrollPosition from '../../lib/hooks/useScrollPosition';
 import { useAnimation, motion } from 'framer-motion';
 
 const NavBar: React.FC = () => {
