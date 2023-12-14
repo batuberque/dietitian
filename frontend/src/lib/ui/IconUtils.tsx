@@ -2,6 +2,7 @@ import { FaFacebookF, FaInstagram, FaTwitter } from 'react-icons/fa';
 import { BsFillTelephoneFill } from 'react-icons/bs';
 import { IoMdMail } from 'react-icons/io';
 import { TfiAlignJustify } from 'react-icons/tfi';
+import { IoConstruct } from 'react-icons/io5';
 
 export type IconType =
   | 'FaFacebookF'
@@ -9,7 +10,8 @@ export type IconType =
   | 'FaTwitter'
   | 'BsFillTelephoneFill'
   | 'IoMdMail'
-  | 'TfiAlignJustify';
+  | 'TfiAlignJustify'
+  | 'IoConstruct';
 
 export const renderIcon = (iconType: IconType) => {
   switch (iconType) {
@@ -25,6 +27,8 @@ export const renderIcon = (iconType: IconType) => {
       return <IoMdMail />;
     case 'TfiAlignJustify':
       return <TfiAlignJustify />;
+    case 'IoConstruct':
+      return <IoConstruct />;
     default:
       return null;
   }
