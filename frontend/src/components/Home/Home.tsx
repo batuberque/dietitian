@@ -8,7 +8,7 @@ const Home = () => {
   };
 
   return (
-    <div className="container mx-auto mt-48">
+    <div className="container mx-auto mt-36">
       <div className="text-center">
         <h1 className="text-4xl font-bold text-gray-700 mb-4 shadow-sm font-serif">
           TORA VİNÇ İNŞAAT
@@ -21,7 +21,7 @@ const Home = () => {
       <div className="flex justify-center mt-10">
         <div className="max-w-lg">
           <img
-            src="tora-vinc-insaat.jpg"
+            src="/assets/1.jpg"
             alt="TORA VİNÇ İNŞAAT"
             className="rounded-lg shadow-lg"
           />

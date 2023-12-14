@@ -1,10 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { renderIcon } from '../../lib/ui/IconUtils';
 
 const Footer: React.FC = () => {
   return (
-    <div className="footer bg-gray-200 p-4 shadow-up-md fixed bottom-0 w-full">
+    <div className="footer bg-gray-200 p-4 shadow-up-md w-full mt-5">
       <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
         <div className="mb-4 md:mb-0">
           <span className="text-sm font-light text-gray-600 text-center md:text-left">
@@ -19,7 +18,7 @@ const Footer: React.FC = () => {
             className="text-gray-600 hover:text-gray-800 transition duration-300 flex items-center"
           >
             {renderIcon('BsFillTelephoneFill')}{' '}
-            <span className="ml-2">+1 234 567 89</span>
+            <span className="ml-2">+90 545 545 45 45</span>
           </a>
           <a
             href="mailto:info@toravincinsaat.com"

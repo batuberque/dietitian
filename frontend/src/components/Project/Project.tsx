@@ -4,13 +4,13 @@ const projects = [
   {
     id: 1,
     name: 'Proje 1',
-    image: 'project1.jpg',
+    image: '/assets/1.jpg',
     description: 'Proje 1 Açıklaması',
   },
   {
     id: 2,
     name: 'Proje 2',
-    image: 'project2.jpg',
+    image: '/assets/1.jpg',
     description: 'Proje 2 Açıklaması',
   },
 ];

@@ -10,15 +10,17 @@ const AnimatedRouter = lazy(() => import('./components/AnimatedRouter'));
 
 const App = () => {
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <BrowserRouter>
         <QueryClientProvider client={queryClient}>
           <NavBar />
-          <AnimatedRouter />
+          <div className="flex-grow">
+            <AnimatedRouter />
+          </div>
           <Footer />
         </QueryClientProvider>
       </BrowserRouter>
-    </>
+    </div>
   );
 };
 
