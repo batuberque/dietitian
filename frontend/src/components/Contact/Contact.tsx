@@ -56,6 +56,9 @@ const ContactUs: React.FC = () => {
         onSubmit={handleSubmit}
         className="max-w-md mx-auto mt-20 space-y-4"
       >
+        <h4 className="text-center text-2xl font-bold text-gray-700 mb-1 shadow-sm font-serif">
+          İLETİŞİM
+        </h4>
         <input
           type="email"
           name="email"
