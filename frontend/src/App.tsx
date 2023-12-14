@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { lazy } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from './services/query-client';
-import NavBar from './components/NavBar/NavBar';
-import Footer from './components/Footer/Footer';
-import AnimatedRouter from './components/AnimatedRouter';
+
+const NavBar = lazy(() => import('./components/NavBar/NavBar'));
+const Footer = lazy(() => import('./components/Footer/Footer'));
+const AnimatedRouter = lazy(() => import('./components/AnimatedRouter'));
 
 const App = () => {
   return (

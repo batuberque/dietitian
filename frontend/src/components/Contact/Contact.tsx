@@ -2,6 +2,8 @@ import { useMutation } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import { Email, sendEmail } from '../../services/queries';
 import translation from '../transition';
+import emailValidationSchema from '../../lib/types/zod';
+import { z } from 'zod';
 
 const ContactUs: React.FC = () => {
   const [emailData, setEmailData] = useState<Email>({
@@ -9,23 +11,43 @@ const ContactUs: React.FC = () => {
     subject: '',
     message: '',
   });
+  const [formErrors, setFormErrors] = useState<z.ZodIssue[]>([]);
+
   const { mutate: sendEmailMutation } = useMutation<string, Error, Email>(
     sendEmail
   );
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    sendEmailMutation(emailData, {
-      onSuccess: () => {
-        alert('E-mail başarılı bir şekilde gönderildi.');
-      },
-    });
-    console.log('eeeee', emailData);
+    try {
+      emailValidationSchema.parse(emailData);
+      sendEmailMutation(emailData, {
+        onSuccess: () => {
+          alert('E-mail başarılı bir şekilde gönderildi.');
+        },
+      });
+      setFormErrors([]);
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        setFormErrors(error.issues);
+      }
+    }
   };
+
+  const findError = (fieldName: string) => {
+    return formErrors.find((error) => error.path[0] === fieldName)?.message;
+  };
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setEmailData({ ...emailData, [e.target.name]: e.target.value });
+
+    if (formErrors.length > 0) {
+      setFormErrors(
+        formErrors.filter((error) => error.path[0] !== e.target.name)
+      );
+    }
   };
 
   return (
@@ -42,6 +64,9 @@ const ContactUs: React.FC = () => {
           placeholder="Email'inizi Giriniz"
           className="w-full p-2 border border-gray-300 rounded-md"
         />
+        {findError('email') && (
+          <div className="error-message">{findError('email')}</div>
+        )}{' '}
         <input
           type="text"
           name="subject"
@@ -50,6 +75,9 @@ const ContactUs: React.FC = () => {
           placeholder="Konu Başlığı"
           className="w-full p-2 border border-gray-300 rounded-md"
         />
+        {findError('subject') && (
+          <div className="error-message">{findError('subject')}</div>
+        )}{' '}
         <textarea
           name="message"
           value={emailData.message}
@@ -57,6 +85,9 @@ const ContactUs: React.FC = () => {
           placeholder="Mesaj Yazınız (Sağ alttan mesaj boyutunuzu büyültebilirsiniz)"
           className="w-full p-2 border border-gray-300 rounded-md"
         ></textarea>
+        {findError('message') && (
+          <div className="error-message">{findError('message')}</div>
+        )}{' '}
         <button
           type="submit"
           className="w-full p-2 bg-gray-500 text-white rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-opacity-50 transition duration-300 ease-in-out"
