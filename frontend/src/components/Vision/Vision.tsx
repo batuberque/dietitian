@@ -13,7 +13,7 @@ const Vision = () => {
       </p>
       <div className="mt-6">
         <img
-          src="vision-image.jpg"
+          src="/assets/1.jpg"
           alt="Vizyonumuz"
           className="rounded-lg shadow-lg"
         />
