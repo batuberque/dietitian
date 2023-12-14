@@ -43,59 +43,61 @@ const NavBar: React.FC = () => {
 
   return (
     <motion.nav animate={controls} initial={{ scale: 1 }}>
-      <nav ref={menuRef}>
-        <div className="header bg-gray-100 p-4 shadow-md fixed top-0 w-full">
-          <div className="container mx-auto flex flex-wrap justify-between items-center">
-            <div className="logo">
-              <span className="text-xl font-bold text-gray-700 shadow-sm font-serif">
-                <Link to={'/'}>TORA VİNÇ & İNŞAAT</Link>
-              </span>
-            </div>
+      <nav
+        ref={menuRef}
+        className="bg-gray-100 p-4 shadow-md fixed top-0 w-full"
+      >
+        <div className="container mx-auto flex flex-wrap justify-between items-center">
+          {/* Logo */}
+          <div className="logo">
+            <span className="text-xl font-bold text-gray-700 font-serif">
+              <Link to={'/'}>TORA VİNÇ & İNŞAAT</Link>
+            </span>
+          </div>
 
-            <div className="md:hidden">
-              <button className="text-2xl" onClick={toggleMenu}>
-                {renderIcon('TfiAlignJustify')}
-              </button>
-            </div>
+          {/* Hamburger İkonu (lg ekran boyutunda ve altında gösterilir) */}
+          <div className="text-2xl lg:hidden">
+            <button onClick={toggleMenu}>
+              {renderIcon('TfiAlignJustify')}
+            </button>
+          </div>
 
-            <div
-              className={`w-full md:flex md:items-center md:w-auto ${
-                !isMenuOpen ? 'hidden' : ''
-              }`}
+          {/* Menü Öğeleri (lg ekran boyutunda gizlenir) */}
+          <div
+            className={`w-full lg:flex lg:items-center lg:w-auto ${
+              !isMenuOpen ? 'hidden' : ''
+            }`}
+          >
+            <Link
+              to={'/'}
+              className="block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-gray-800 mr-4 shadow-sm font-serif"
             >
-              <div className="text-md md:flex-grow">
-                <Link
-                  to={'/'}
-                  className="block mt-4 md:inline-block md:mt-0 text-gray-600 hover:text-gray-800 mr-4 shadow-sm font-serif"
-                >
-                  ANA SAYFA
-                </Link>
-                <Link
-                  to={'/vision'}
-                  className="block mt-4 md:inline-block md:mt-0 text-gray-600 hover:text-gray-800 mr-4 shadow-sm font-serif"
-                >
-                  VİZYONUMUZ
-                </Link>
-                <Link
-                  to={'/project'}
-                  className="block mt-4 md:inline-block md:mt-0 text-gray-600 hover:text-gray-800 mr-4 shadow-sm font-serif"
-                >
-                  PROJELER
-                </Link>
-                <Link
-                  to={'/service'}
-                  className="block mt-4 md:inline-block md:mt-0 text-gray-600 hover:text-gray-800 mr-4 shadow-sm font-serif"
-                >
-                  HİZMETLERİMİZ
-                </Link>
-                <Link
-                  to={'/contact'}
-                  className="block mt-4 md:inline-block md:mt-0 text-gray-600 hover:text-gray-800 shadow-sm font-serif"
-                >
-                  İLETİŞİM
-                </Link>
-              </div>
-            </div>
+              ANA SAYFA
+            </Link>
+            <Link
+              to={'/vision'}
+              className="block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-gray-800 mr-4 shadow-sm font-serif"
+            >
+              VİZYONUMUZ
+            </Link>
+            <Link
+              to={'/project'}
+              className="block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-gray-800 mr-4 shadow-sm font-serif"
+            >
+              PROJELER
+            </Link>
+            <Link
+              to={'/service'}
+              className="block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-gray-800 mr-4 shadow-sm font-serif"
+            >
+              HİZMETLERİMİZ
+            </Link>
+            <Link
+              to={'/contact'}
+              className="block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-gray-800 shadow-sm font-serif"
+            >
+              İLETİŞİM
+            </Link>
           </div>
         </div>
       </nav>
