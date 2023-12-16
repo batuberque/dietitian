@@ -20,6 +20,8 @@ package-lock.json
 # production
 /build
 
+text.txt
+
 # misc
 .DS_Store
 .env.local

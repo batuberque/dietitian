@@ -21,11 +21,11 @@ const Footer: React.FC = () => {
             <span className="ml-2">+90 545 545 45 45</span>
           </a>
           <a
-            href="mailto:info@toravincinsaat.com"
+            href="mailto:toravincinsaat@gmail.com"
             className="text-gray-600 hover:text-gray-800 transition duration-300 flex items-center"
           >
             {renderIcon('IoMdMail')}{' '}
-            <span className="ml-2">info@toravincinsaat.com</span>
+            <span className="ml-2">toravincinsaat@gmail.com</span>
           </a>
         </div>
 

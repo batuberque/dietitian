@@ -10,7 +10,7 @@ const AnimatedRouter = lazy(() => import('./components/AnimatedRouter'));
 
 const App = () => {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-checks-pattern">
       <BrowserRouter>
         <QueryClientProvider client={queryClient}>
           <NavBar />

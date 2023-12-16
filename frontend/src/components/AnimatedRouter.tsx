@@ -5,6 +5,7 @@ import Vision from './Vision/Vision';
 import Project from './Project/Project';
 import Service from './Service/Service';
 import ContactUs from './Contact/Contact';
+import About from './About/About';
 import NotFound from './NotFound/NotFound';
 
 const AnimatedRouter = () => {
@@ -17,6 +18,7 @@ const AnimatedRouter = () => {
         <Route path="/vision" element={<Vision />} />
         <Route path="/project" element={<Project />} />
         <Route path="/service" element={<Service />} />
+        <Route path="/about" element={<About />} />
         <Route path="/contact" element={<ContactUs />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
