@@ -13,6 +13,12 @@ const projects = [
     image: '/assets/1.jpg',
     description: 'Proje 2 Açıklaması',
   },
+  {
+    id: 3,
+    name: 'Proje 3',
+    image: '/assets/1.jpg',
+    description: 'Proje 3 Açıklaması',
+  },
 ];
 
 const Project = () => {

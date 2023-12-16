@@ -4,6 +4,7 @@ import { Email, sendEmail } from '../../services/queries';
 import translation from '../transition';
 import emailValidationSchema from '../../lib/types/zod';
 import { z } from 'zod';
+import Modal from '../../lib/ui/modal';
 
 const ContactUs: React.FC = () => {
   const [emailData, setEmailData] = useState<Email>({
@@ -12,6 +13,7 @@ const ContactUs: React.FC = () => {
     message: '',
   });
   const [formErrors, setFormErrors] = useState<z.ZodIssue[]>([]);
+  const [showModal, setShowModal] = useState(false);
 
   const { mutate: sendEmailMutation } = useMutation<string, Error, Email>(
     sendEmail
@@ -23,7 +25,7 @@ const ContactUs: React.FC = () => {
       emailValidationSchema.parse(emailData);
       sendEmailMutation(emailData, {
         onSuccess: () => {
-          alert('E-mail başarılı bir şekilde gönderildi.');
+          setShowModal(true);
         },
       });
       setFormErrors([]);
@@ -98,6 +100,9 @@ const ContactUs: React.FC = () => {
           E-POSTA GÖNDER
         </button>
       </form>
+      <Modal showModal={showModal} setShowModal={setShowModal}>
+        <p>E-mail başarılı bir şekilde gönderildi.</p>
+      </Modal>
     </>
   );
 };

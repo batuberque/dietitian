@@ -92,6 +92,14 @@ const NavBar: React.FC = () => {
             >
               HİZMETLERİMİZ
             </Link>
+
+            <Link
+              to={'/about'}
+              className="block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-gray-800 mr-4 shadow-sm font-serif"
+            >
+              HAKKIMIZDA
+            </Link>
+
             <Link
               to={'/contact'}
               className="block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-gray-800 shadow-sm font-serif"
