@@ -2,7 +2,7 @@ import translation from '../transition';
 
 const About = () => {
   return (
-    <div className="max-w-md mx-auto mt-20 space-y-6 text-center">
+    <div className="max-w-md mx-auto mt-20 text-center space-y-4 px-4 md:px-6">
       <h2 className="text-center text-2xl font-bold text-gray-700 mb-6 shadow-sm font-serif">
         HAKKIMIZDA
       </h2>

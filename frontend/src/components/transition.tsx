@@ -26,7 +26,7 @@ const transition = (OgComponent: React.ComponentType) => {
         exit={{ scaleY: 1 }}
         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       >
-        TORA VİNÇ&İNŞAAT
+        TORA VİNÇ & İNŞAAT
       </motion.div>
       <motion.div
         className="slide-out"
