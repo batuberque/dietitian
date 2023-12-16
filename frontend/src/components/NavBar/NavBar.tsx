@@ -63,7 +63,10 @@ const NavBar: React.FC = () => {
 
           <div className="text-2xl lg:hidden">
             <button onClick={toggleMenu}>
-              {renderIcon('TfiAlignJustify')}
+              {renderIcon({
+                iconType: 'TfiAlignJustify',
+                sizeClass: 'text-xl',
+              })}
             </button>
           </div>
 
