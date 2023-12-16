@@ -56,7 +56,7 @@ const ContactUs: React.FC = () => {
     <>
       <form
         onSubmit={handleSubmit}
-        className="max-w-md mx-auto mt-20 space-y-4"
+        className="max-w-md mx-auto mt-20 space-y-4 px-4 md:px-6"
       >
         <h4 className="text-center text-2xl font-bold text-gray-700 mb-1 shadow-sm font-serif">
           İLETİŞİM

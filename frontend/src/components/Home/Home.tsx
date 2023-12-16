@@ -8,9 +8,9 @@ const Home = () => {
   };
 
   return (
-    <div className="container mx-auto mt-36">
+    <div className="container mx-auto mt-24">
       <div className="text-center">
-        <h1 className="text-4xl font-bold text-gray-700 mb-4 shadow-sm font-serif">
+        <h1 className="text-4xl font-bold text-gray-700 mb-4 shadow-sm font-serif space-y-4 px-4 md:px-6">
           TORA VİNÇ İNŞAAT
         </h1>
         <p className="text-xl text-gray-500">
@@ -18,7 +18,7 @@ const Home = () => {
         </p>
       </div>
 
-      <div className="flex justify-center mt-10">
+      <div className="flex justify-center mt-10 space-y-4 px-4 md:px-6">
         <div className="max-w-lg">
           <img
             src="/assets/1.jpg"
@@ -28,7 +28,7 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="text-center mt-10">
+      <div className="text-center mt-10 space-y-4 px-4 md:px-6">
         <h2 className="text-3xl font-semibold text-gray-700">Hizmetlerimiz</h2>
         <p className="text-gray-500 mt-2">
           Yüksek kaliteli ve güvenilir inşaat ve vinç hizmetleri sunuyoruz.

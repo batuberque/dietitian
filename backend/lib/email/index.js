@@ -15,7 +15,7 @@ let transporter = nodemailer.createTransport({
   },
 });
 async function sendEmail(fromEmail, subject, userMessage) {
-  let emailContent = `Gönderen: ${fromEmail}\nMesaj: ${userMessage}`;
+  let emailContent = `Alıcı: ${fromEmail}\nMesaj: ${userMessage}`;
 
   let mailOptions = {
     from: process.env.TARGET_EMAIL,
