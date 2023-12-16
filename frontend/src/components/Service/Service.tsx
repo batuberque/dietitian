@@ -28,7 +28,7 @@ const Service = () => {
             key={service.id}
             className="flex items-center space-x-4 bg-white p-4 rounded-lg shadow-md"
           >
-            {renderIcon(service.icon)}
+            {renderIcon({ iconType: service.icon, sizeClass: 'text-2xl' })}
             <div>
               <h3 className="font-bold text-lg text-gray-700">
                 {service.name}
