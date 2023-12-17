@@ -17,7 +17,7 @@ const ProjectDetail: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4">
+    <div className="flex flex-col items-center justify-center min-h-screen p-4 mt-10">
       <div className="max-w-4xl w-full bg-white rounded-lg shadow-md overflow-hidden">
         <ImageSlider images={project.images} />
         <div className="p-6">

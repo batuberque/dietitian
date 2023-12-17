@@ -50,7 +50,11 @@ const NavBar: React.FC = () => {
         <div className="container mx-auto flex flex-wrap justify-between items-center">
           <div className="flex items-center">
             <div className="w-10 mr-4">
-              <img src={'/assets/png.png'} alt="logo" className="ml-2" />
+              <img
+                src={'/assets/png.png'}
+                alt="logo"
+                className="ml-2 rounded-md"
+              />
             </div>
             <span className="text-xl font-bold text-gray-700 font-serif">
               <Link to={'/'}>TORA VİNÇ & İNŞAAT</Link>
