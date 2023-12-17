@@ -10,15 +10,22 @@ const Home = () => {
   return (
     <div className="container mx-auto mt-24">
       <div className="text-center">
-        <h1 className="text-4xl font-bold text-gray-700 mb-4 shadow-sm font-serif space-y-4 px-4 md:px-6">
-          TORA VİNÇ İNŞAAT
-        </h1>
-        <p className="text-xl text-gray-500">
+        <div className="flex justify-center items-center space-x-4 px-4 md:px-6">
+          <img
+            src="/assets/png.png"
+            alt="Logo"
+            className="h-10 w-10 self-center"
+          />
+          <h1 className="text-4xl font-bold text-gray-700 shadow-sm font-serif self-center">
+            TORA VİNÇ İNŞAAT
+          </h1>
+        </div>
+        <p className="text-xl text-gray-500 p-6">
           İnşaat ve Vinç Hizmetlerinizde Güvenilir Çözüm Ortağınız
         </p>
       </div>
 
-      <div className="flex justify-center mt-10 space-y-4 px-4 md:px-6">
+      <div className="flex justify-center mt-3 space-y-4 px-4 md:px-6">
         <div className="max-w-lg">
           <img
             src="/assets/1.jpg"
