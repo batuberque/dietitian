@@ -8,15 +8,22 @@ interface ImageSliderProps {
 
 const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isChanging, setIsChanging] = useState(false);
+
+  const changeImage = (newIndex: React.SetStateAction<number>) => {
+    setIsChanging(true);
+    setTimeout(() => {
+      setCurrentIndex(newIndex);
+      setIsChanging(false);
+    }, 300);
+  };
 
   const nextImage = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+    changeImage((currentIndex + 1) % images.length);
   };
 
   const prevImage = () => {
-    setCurrentIndex(
-      (prevIndex) => (prevIndex - 1 + images.length) % images.length
-    );
+    changeImage((currentIndex - 1 + images.length) % images.length);
   };
 
   return (
@@ -24,7 +31,9 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
       <img
         src={images[currentIndex]}
         alt={`Image ${currentIndex + 1}`}
-        className="w-full h-auto"
+        className={`w-full h-auto transition-opacity duration-500 ${
+          isChanging ? 'opacity-0' : 'opacity-100'
+        }`}
       />
       <button
         onClick={prevImage}
