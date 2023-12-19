@@ -15,7 +15,7 @@ router.post("/", async (req, res) => {
   await sendEmail(
     process.env.TARGET_EMAIL,
     subject,
-    `From: ${email}, Message: ${message}`
+    `\nKimden: ${email}, \nMesaj İçeriği: ${message}`
   );
 
   res.send("Email sent successfully");
