@@ -1,5 +1,5 @@
 import translation from '../transition';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ const Home = () => {
             alt="Logo"
             className="h-20 w-20 self-center rounded-lg"
           />
-          <h1 className="text-4xl font-bold text-gray-700 shadow-sm font-serif self-center">
+          <h1 className="text-4xl font-bold text-gray-700 hover:text-gray-800 shadow-sm font-serif self-center">
             TORA VİNÇ & İNŞAAT
           </h1>
         </div>
@@ -36,8 +36,8 @@ const Home = () => {
       </div>
 
       <div className="text-center mt-5 space-y-4 px-4 md:px-6">
-        <h2 className="text-center text-2xl font-bold text-gray-700 mb-1 shadow-sm font-serif">
-          Hizmetlerimiz
+        <h2 className="text-center text-2xl font-bold text-gray-700 hover:text-gray-800 mb-1 shadow-sm font-serif">
+          <Link to={'/service'}>HİZMETLERİMİZ</Link>
         </h2>
         <p className="text-gray-500 mt-2">
           Yüksek kaliteli ve güvenilir inşaat ve vinç hizmetleri sunuyoruz.

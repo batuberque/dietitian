@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Email, sendEmail } from '../../services/queries';
 import translation from '../transition';
 import emailValidationSchema from '../../lib/types/zod';
@@ -26,22 +26,25 @@ const ContactUs: React.FC = () => {
     sendEmail
   );
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      emailValidationSchema.parse(emailData);
-      sendEmailMutation(emailData, {
-        onSuccess: () => {
-          setShowModal(true);
-        },
-      });
-      setFormErrors([]);
-    } catch (error) {
-      if (error instanceof z.ZodError) {
-        setFormErrors(error.issues);
+  const handleSubmitCallBack = useCallback(
+    (e: React.FormEvent) => {
+      e.preventDefault();
+      try {
+        emailValidationSchema.parse(emailData);
+        sendEmailMutation(emailData, {
+          onSuccess: () => {
+            setShowModal(true);
+          },
+        });
+        setFormErrors([]);
+      } catch (error) {
+        if (error instanceof z.ZodError) {
+          setFormErrors(error.issues);
+        }
       }
-    }
-  };
+    },
+    [emailData, sendEmailMutation]
+  );
 
   const findError = (fieldName: string) => {
     return formErrors.find((error) => error.path[0] === fieldName)?.message;
@@ -62,7 +65,7 @@ const ContactUs: React.FC = () => {
   return (
     <>
       <form
-        onSubmit={handleSubmit}
+        onSubmit={handleSubmitCallBack}
         className="max-w-md mx-auto mt-20 space-y-4 px-4 md:px-6"
       >
         <h4 className="text-center text-2xl font-bold text-gray-700 mb-1 shadow-sm font-serif">
