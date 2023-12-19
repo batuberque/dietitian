@@ -13,13 +13,14 @@ const ContactUs: React.FC = () => {
     subject: '',
     message: '',
   });
-  const [formErrors, setFormErrors] = useState<z.ZodIssue[]>([]);
-  const [showModal, setShowModal] = useState(false);
   const [contactInfo] = useState({
     phone: '+90 533 389 59 72',
     address: 'Beyazevler Mahallesi ,515.Sokak, No:36/2 Gaziemir - İZMİR',
     email: 'toravincinsaat@gmail.com',
   });
+
+  const [formErrors, setFormErrors] = useState<z.ZodIssue[]>([]);
+  const [showModal, setShowModal] = useState(false);
 
   const { mutate: sendEmailMutation } = useMutation<string, Error, Email>(
     sendEmail

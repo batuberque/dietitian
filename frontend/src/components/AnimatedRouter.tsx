@@ -13,18 +13,20 @@ const AnimatedRouter = () => {
   const location = useLocation();
 
   return (
-    <AnimatePresence mode="wait">
-      <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<Home />} />
-        <Route path="/vision" element={<Vision />} />
-        <Route path="/project" element={<Project />} />
-        <Route path="/project/:id" element={<ProjectDetail />} />
-        <Route path="/service" element={<Service />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<ContactUs />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </AnimatePresence>
+    <div className="flex-grow">
+      <AnimatePresence mode="wait">
+        <Routes location={location} key={location.pathname}>
+          <Route path="/" element={<Home />} />
+          <Route path="/vision" element={<Vision />} />
+          <Route path="/project" element={<Project />} />
+          <Route path="/project/:id" element={<ProjectDetail />} />
+          <Route path="/service" element={<Service />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<ContactUs />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </AnimatePresence>
+    </div>
   );
 };
 
