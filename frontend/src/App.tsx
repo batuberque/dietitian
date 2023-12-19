@@ -14,9 +14,7 @@ const App = () => {
       <BrowserRouter>
         <QueryClientProvider client={queryClient}>
           <NavBar />
-          <div className="flex-grow">
-            <AnimatedRouter />
-          </div>
+          <AnimatedRouter />
           <Footer />
         </QueryClientProvider>
       </BrowserRouter>
