@@ -9,6 +9,7 @@ export interface IContactSlice {
     address: string;
     email: string;
   };
+  resetEmailData: () => void;
 }
 
 export const createContactSlice: StateCreator<IContactSlice> = (set) => ({
@@ -19,4 +20,6 @@ export const createContactSlice: StateCreator<IContactSlice> = (set) => ({
     address: 'Beyazevler Mahallesi ,515.Sokak, No:36/2 Gaziemir - İZMİR',
     email: 'toravincinsaat@gmail.com',
   },
+  resetEmailData: () =>
+    set({ emailData: { email: '', subject: '', message: '' } }),
 });

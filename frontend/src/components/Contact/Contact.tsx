@@ -1,12 +1,14 @@
+import React, { useCallback, useEffect, useState } from 'react';
+
 import { useMutation } from '@tanstack/react-query';
-import React, { useCallback, useState } from 'react';
-import { Email, sendEmail } from '../../services/queries';
-import translation from '../transition';
-import emailValidationSchema from '../../lib/validation/zod';
 import { z } from 'zod';
-import Modal from '../../lib/ui/modal';
-import { renderIcon } from '../../lib/ui/IconUtils';
+
+import translation from '../transition';
 import useStore from '../../store/useStore';
+import { Email, sendEmail } from '../../services/queries';
+import emailValidationSchema from '../../lib/validation/zod';
+import { renderIcon } from '../../lib/ui/IconUtils';
+import Modal from '../../lib/ui/modal';
 
 const ContactUs: React.FC = () => {
   const { emailData, setEmailData, contactInfo } = useStore();
@@ -15,6 +17,12 @@ const ContactUs: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
 
   const { mutate } = useMutation<string, Error, Email>(sendEmail);
+
+  useEffect(() => {
+    return () => {
+      useStore.getState().resetEmailData();
+    };
+  }, []);
 
   const handleSubmitCallBack = useCallback(
     (e: React.FormEvent) => {
