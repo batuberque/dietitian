@@ -2,38 +2,32 @@ import { useMutation } from '@tanstack/react-query';
 import React, { useCallback, useState } from 'react';
 import { Email, sendEmail } from '../../services/queries';
 import translation from '../transition';
-import emailValidationSchema from '../../lib/types/zod';
+import emailValidationSchema from '../../lib/validation/zod';
 import { z } from 'zod';
 import Modal from '../../lib/ui/modal';
 import { renderIcon } from '../../lib/ui/IconUtils';
+import useStore from '../../store/useStore';
 
 const ContactUs: React.FC = () => {
-  const [emailData, setEmailData] = useState<Email>({
-    email: '',
-    subject: '',
-    message: '',
-  });
-  const [contactInfo] = useState({
-    phone: '+90 533 389 59 72',
-    address: 'Beyazevler Mahallesi ,515.Sokak, No:36/2 Gaziemir - İZMİR',
-    email: 'toravincinsaat@gmail.com',
-  });
+  const { emailData, setEmailData, contactInfo } = useStore();
 
   const [formErrors, setFormErrors] = useState<z.ZodIssue[]>([]);
   const [showModal, setShowModal] = useState(false);
 
-  const { mutate: sendEmailMutation } = useMutation<string, Error, Email>(
-    sendEmail
-  );
+  const { mutate } = useMutation<string, Error, Email>(sendEmail);
 
   const handleSubmitCallBack = useCallback(
     (e: React.FormEvent) => {
+      console.log('data', emailData);
       e.preventDefault();
       try {
         emailValidationSchema.parse(emailData);
-        sendEmailMutation(emailData, {
+        mutate(emailData, {
           onSuccess: () => {
             setShowModal(true);
+          },
+          onError: () => {
+            alert('E-mail gönderilirken bir hata oluştu!');
           },
         });
         setFormErrors([]);
@@ -43,7 +37,7 @@ const ContactUs: React.FC = () => {
         }
       }
     },
-    [emailData, sendEmailMutation]
+    [emailData, mutate]
   );
 
   const findError = (fieldName: string) => {

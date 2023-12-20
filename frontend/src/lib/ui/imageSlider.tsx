@@ -1,21 +1,20 @@
-/* eslint-disable jsx-a11y/img-redundant-alt */
-import React, { useState } from 'react';
 import { renderIcon } from './IconUtils';
+import useStore from '../../store/useStore';
 
 interface ImageSliderProps {
   images: string[];
 }
 
 const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isChanging, setIsChanging] = useState(false);
+  const { currentIndex, isChanging, setCurrentIndex, setIsChanging } =
+    useStore();
 
-  const changeImage = (newIndex: React.SetStateAction<number>) => {
+  const changeImage = (newIndex: number) => {
     setIsChanging(true);
+    setCurrentIndex(newIndex);
     setTimeout(() => {
-      setCurrentIndex(newIndex);
       setIsChanging(false);
-    }, 300);
+    }, 380);
   };
 
   const nextImage = () => {
@@ -30,11 +29,11 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
     <div className="relative">
       <img
         src={images[currentIndex]}
-        alt={`Image ${currentIndex + 1}`}
+        alt={`${currentIndex + 1}`}
         className={`w-full h-auto transition-opacity duration-500 ${
           isChanging ? 'opacity-0' : 'opacity-100'
         }`}
-      />
+      />{' '}
       <button
         onClick={prevImage}
         className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75"
