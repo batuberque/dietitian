@@ -105,7 +105,7 @@ const NavBar: React.FC = () => {
               to={'/project'}
               className="block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-gray-800 mr-4 shadow-sm font-serif"
             >
-              PROJELER
+              PROJELERİMİZ
             </Link>
             <Link
               to={'/service'}

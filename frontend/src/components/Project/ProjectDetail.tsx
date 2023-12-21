@@ -25,6 +25,7 @@ const ProjectDetail: React.FC = () => {
             {project.name}
           </h2>
           <p className="text-gray-600 text-base">{project.description}</p>
+          <p className="text-gray-600 text-base">{project.subtitle}</p>
         </div>
       </div>
     </div>
