@@ -113,7 +113,7 @@ const ContactUs: React.FC = () => {
         </button>
       </form>
 
-      <div className="max-w-md mx-auto mt-10 space-y-4 px-4 md:px-6">
+      <div className="max-w-md mx-auto mt-10 space-y-4 px-4 md:px-6 pb-5">
         <h4 className="text-center text-2xl font-bold text-gray-700 mb-1 shadow-sm font-serif">
           İLETİŞİM BİLGİLERİ
         </h4>

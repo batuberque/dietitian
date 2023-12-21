@@ -1,5 +1,6 @@
 import translation from '../transition';
 import { Link, useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -7,51 +8,64 @@ const Home = () => {
     navigate('/contact');
   };
 
+  const textVariants = {
+    hidden: { opacity: 0, y: -20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 1, ease: 'easeOut' },
+    },
+  };
+
   return (
-    <div className="container mx-auto mt-24">
-      <div className="text-center">
-        <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4 px-4">
-          <img
-            src="/assets/png.png"
-            alt="Logo"
-            className="h-20 w-20 self-center rounded-lg"
-          />
-          <h1 className="text-4xl font-bold text-gray-700 hover:text-gray-800 shadow-sm font-serif self-center">
-            TORA VİNÇ & İNŞAAT
-          </h1>
-        </div>
-        <p className="text-xl text-gray-500 p-6">
+    <div className="relative h-screen">
+      <img
+        src="/assets/delphi.jpeg"
+        alt="Full Screen Background"
+        className="object-cover w-full h-full"
+      />
+
+      <motion.div
+        className="absolute inset-0 flex flex-col justify-center items-start container mx-auto px-4 md:px-6"
+        variants={textVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        <motion.h1
+          className="text-4xl md:text-6xl font-bold text-white font-serif mb-4 hover:text-gray-200"
+          whileHover={{ scale: 1.03 }}
+        >
+          TORA VİNÇ & İNŞAAT
+        </motion.h1>
+        <motion.p
+          className="text-xl md:text-2xl text-white mb-6 hover:text-gray-200"
+          whileHover={{ scale: 1.03 }}
+        >
           İnşaat ve Vinç Hizmetlerinizde Güvenilir Çözüm Ortağınız
-        </p>
-      </div>
+        </motion.p>
 
-      <div className="flex justify-center mt-1 space-y-4 px-4 md:px-6">
-        <div className="max-w-lg">
-          <img
-            src="/assets/1.jpg"
-            alt="TORA VİNÇ İNŞAAT"
-            className="rounded-lg shadow-lg"
-          />
-        </div>
-      </div>
-
-      <div className="text-center mt-5 space-y-4 px-4 md:px-6">
-        <h2 className="text-center text-2xl font-bold text-gray-700 hover:text-gray-800 mb-1 shadow-sm font-serif">
+        <motion.h2
+          className="text-2xl md:text-3xl font-bold text-white mb-2 font-serif hover:text-gray-200"
+          whileHover={{ scale: 1.03 }}
+        >
           <Link to={'/service'}>HİZMETLERİMİZ</Link>
-        </h2>
-        <p className="text-gray-500 mt-2">
+        </motion.h2>
+        <motion.p
+          className="text-white text-lg md:text-xl mb-8 hover:text-gray-200"
+          whileHover={{ scale: 1.03 }}
+        >
           Yüksek kaliteli ve güvenilir inşaat ve vinç hizmetleri sunuyoruz.
-        </p>
-      </div>
+        </motion.p>
 
-      <div className="text-center mt-5 mb-5">
-        <button
-          className="bg-gray-700 text-white px-5 py-2 rounded hover:bg-gray-600"
+        <motion.button
+          className="bg-transparent text-white px-5 py-2 border border-white rounded hover:bg-gray-700 hover:border-transparent"
           onClick={handleContactClick}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
         >
           Bizimle İletişime Geçin
-        </button>
-      </div>
+        </motion.button>
+      </motion.div>
     </div>
   );
 };

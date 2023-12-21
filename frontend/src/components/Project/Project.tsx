@@ -4,10 +4,10 @@ import { projects } from './projects';
 
 const Project = () => {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen mb-5">
       <div className="max-w-7xl mx-auto mt-20 space-y-4 px-4 md:px-6">
         <h2 className="text-center text-2xl font-bold text-gray-700 mb-5 shadow-sm font-serif">
-          PROJELER
+          PROJELERİMİZ
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-20">
           {projects.map((project) => (
@@ -19,10 +19,12 @@ const Project = () => {
                   className="w-full h-64 object-cover"
                 />
                 <div className="p-4">
-                  <h3 className="font-bold text-lg text-gray-700">
+                  <h3 className="font-bold text-lg text-gray-700 line-clamp-2">
                     {project.name}
                   </h3>
-                  <p className="text-gray-600 text-sm">{project.description}</p>
+                  <p className="text-gray-600 text-sm line-clamp-2">
+                    {project.subtitle}
+                  </p>
                 </div>
               </div>
             </Link>

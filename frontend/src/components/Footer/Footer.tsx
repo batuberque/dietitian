@@ -3,7 +3,7 @@ import { renderIcon } from '../../lib/ui/IconUtils';
 
 const Footer: React.FC = () => {
   return (
-    <div className="footer bg-gray-200 p-2 sm:p-4 shadow-up-md w-full mt-5">
+    <div className="footer bg-gray-200 p-2 sm:p-4 shadow-up-md w-full">
       <div className="container mx-auto flex flex-col sm:flex-row justify-between items-center text-center sm:text-left">
         <div className="mb-2 sm:mb-0">
           <span className="text-xs sm:text-sm font-light">
