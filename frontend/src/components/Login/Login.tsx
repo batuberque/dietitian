@@ -16,9 +16,10 @@ const Login = () => {
         {
           onSuccess: (data) => {
             localStorage.setItem('token', data.accessToken);
+            localStorage.setItem('role', 'editor');
             console.log('Giriş başarılı');
             alert('GİRİŞ BAŞARILI');
-            navigate('/user-projects');
+            navigate('/admin');
           },
           onError: (error) => {
             console.error('Giriş başarısız', error);
@@ -31,7 +32,7 @@ const Login = () => {
   );
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-100">
+    <div className="flex justify-center items-center h-screen bg-gray-100 bg-checks-pattern">
       <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow-md">
         <div className="mb-4">
           <label
