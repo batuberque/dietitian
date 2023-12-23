@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/img-redundant-alt */
 import React, { useState } from 'react';
 
 interface ImageManagementProps {
@@ -13,10 +14,21 @@ const ImageManagement: React.FC<ImageManagementProps> = ({
 }) => {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
 
+  const isValidImageFile = (file: File): boolean => {
+    const validTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+    return validTypes.includes(file.type);
+  };
+
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       const imageFile = event.target.files[0];
-      setSelectedImage(imageFile);
+
+      if (isValidImageFile(imageFile)) {
+        setSelectedImage(imageFile);
+      } else {
+        alert('Lütfen bir PNG, JPG veya JPEG dosyası seçin.');
+        // Bu kısımda kullanıcıya daha gelişmiş bir hata mesajı göstermek için özel bir UI bileşeni kullanabilirsiniz.
+      }
     }
   };
 
@@ -41,19 +53,19 @@ const ImageManagement: React.FC<ImageManagementProps> = ({
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           disabled={!selectedImage}
         >
-          Resim Yükle
+          Upload Image
         </button>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {images.map((image, index) => (
           <div key={index} className="border rounded overflow-hidden shadow-lg">
-            <img src={image} alt={`Resim ${index}`} className="w-full" />
+            <img src={image} alt={`Image ${index}`} className="w-full" />
             <div className="px-4 py-2">
               <button
                 onClick={() => onDeleteImage(image)}
                 className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
               >
-                Sil
+                Delete
               </button>
             </div>
           </div>

@@ -1,19 +1,26 @@
 import React, { useState, useEffect } from 'react';
+import { useMutation } from '@tanstack/react-query';
+import { addProject, updateProject, IProject } from '../../services/queries';
 import ImageManagement from './ImageManagement';
-import { Project } from '../Project/projects';
 
 interface EditProjectFormProps {
-  project: Project;
+  project: IProject;
   onClose: () => void;
-  onSave: (project: Project) => void;
 }
 
 const EditProjectForm: React.FC<EditProjectFormProps> = ({
   project,
   onClose,
-  onSave,
 }) => {
-  const [editedProject, setEditedProject] = useState<Project>(project);
+  const [editedProject, setEditedProject] = useState<IProject>(project);
+
+  const addMutation = useMutation(addProject, {
+    onSuccess: () => onClose(),
+  });
+
+  const updateMutation = useMutation(updateProject, {
+    onSuccess: () => onClose(),
+  });
 
   useEffect(() => {
     setEditedProject(project);
@@ -23,24 +30,16 @@ const EditProjectForm: React.FC<EditProjectFormProps> = ({
     setEditedProject({ ...editedProject, [e.target.name]: e.target.value });
   };
 
-  const handleAddImage = (imageUrl: string) => {
-    setEditedProject({
-      ...editedProject,
-      images: [...editedProject.images, imageUrl],
-    });
-  };
-
-  const handleDeleteImage = (imageUrl: string) => {
-    setEditedProject({
-      ...editedProject,
-      images: editedProject.images.filter((img) => img !== imageUrl),
-    });
-  };
-
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onSave(editedProject);
-    onClose();
+    if (editedProject._id) {
+      updateMutation.mutate({
+        projectId: editedProject._id,
+        projectData: editedProject,
+      });
+    } else {
+      addMutation.mutate(editedProject);
+    }
   };
 
   return (
@@ -49,37 +48,54 @@ const EditProjectForm: React.FC<EditProjectFormProps> = ({
         <form onSubmit={handleSubmit}>
           <div>
             <label
-              htmlFor="projectName"
+              htmlFor="name"
               className="block text-sm font-medium text-gray-700"
             >
-              Proje Adı
+              Project Name
             </label>
             <input
               type="text"
+              id="name"
               name="name"
               value={editedProject.name}
               onChange={handleChange}
-              placeholder="Proje Adı"
-              className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm"
+            />
+          </div>
+          <div className="mt-4">
+            <label
+              htmlFor="description"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Description
+            </label>
+            <input
+              type="text"
+              id="description"
+              name="description"
+              value={editedProject.description || ''}
+              onChange={handleChange}
+              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm"
             />
           </div>
           <ImageManagement
             images={editedProject.images}
-            onAddImage={handleAddImage}
-            onDeleteImage={handleDeleteImage}
+            onAddImage={() => {}}
+            onDeleteImage={() => {}}
           />
-          <div className="mt-4">
+          <div className="mt-4 flex justify-end">
             <button
               type="submit"
-              className="bg-blue-500 text-white px-3 py-2 rounded"
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             >
-              Kaydet
+              Save
             </button>
             <button
+              type="button"
               onClick={onClose}
-              className="bg-red-500 text-white px-3 py-2 rounded ml-2"
+              className="ml-2 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
             >
-              Kapat
+              Cancel
             </button>
           </div>
         </form>
