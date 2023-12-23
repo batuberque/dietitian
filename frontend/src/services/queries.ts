@@ -46,3 +46,37 @@ export const useLoginUser = () => {
     }
   );
 };
+
+// PROJECT QUERIES
+export interface IProject {
+  _id: string;
+  name: string;
+  images: string[];
+  description?: string;
+  subtitle?: string;
+}
+
+export const fetchProjects = async (): Promise<IProject[]> => {
+  const response = await axiosInstance.get<IProject[]>('/project');
+  return response.data;
+};
+
+export const addProject = async (projectData: IProject): Promise<IProject> => {
+  const response = await axiosInstance.post<IProject>('/project', projectData);
+  return response.data;
+};
+
+export const updateProject = async (
+  projectId: string,
+  projectData: IProject
+): Promise<IProject> => {
+  const response = await axiosInstance.put<IProject>(
+    `/project/${projectId}`,
+    projectData
+  );
+  return response.data;
+};
+
+export const deleteProject = async (projectId: string): Promise<void> => {
+  await axiosInstance.delete(`/project/${projectId}`);
+};
