@@ -9,6 +9,8 @@ import ContactUs from './Contact/Contact';
 import About from './About/About';
 import NotFound from './NotFound/NotFound';
 import Login from './Login/Login';
+import ProtectedRoute from './ProtectedRouter';
+import AdminPanel from './AdminPanel/AdminPanel';
 
 const AnimatedRouter = () => {
   const location = useLocation();
@@ -25,6 +27,14 @@ const AnimatedRouter = () => {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/login" element={<Login />} />
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute roleRequired={'editor'}>
+                <AdminPanel />
+              </ProtectedRoute>
+            }
+          />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </AnimatePresence>
