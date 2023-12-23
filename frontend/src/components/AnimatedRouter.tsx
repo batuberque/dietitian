@@ -8,6 +8,7 @@ import Service from './Service/Service';
 import ContactUs from './Contact/Contact';
 import About from './About/About';
 import NotFound from './NotFound/NotFound';
+import Login from './Login/Login';
 
 const AnimatedRouter = () => {
   const location = useLocation();
@@ -23,6 +24,7 @@ const AnimatedRouter = () => {
           <Route path="/service" element={<Service />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<ContactUs />} />
+          <Route path="/login" element={<Login />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </AnimatePresence>
