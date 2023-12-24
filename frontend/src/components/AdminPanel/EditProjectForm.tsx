@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { addProject, updateProject, IProject } from '../../services/queries';
 import ImageManagement from './ImageManagement';
@@ -26,20 +26,34 @@ const EditProjectForm: React.FC<EditProjectFormProps> = ({
     setEditedProject(project);
   }, [project]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setEditedProject({ ...editedProject, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (editedProject._id) {
-      updateMutation.mutate({
-        projectId: editedProject._id,
-        projectData: editedProject,
-      });
-    } else {
-      addMutation.mutate(editedProject);
-    }
+  const handleSubmit = useCallback(
+    (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      if (editedProject._id) {
+        updateMutation.mutate({
+          projectId: editedProject._id,
+          projectData: editedProject,
+        });
+      } else {
+        addMutation.mutate(editedProject);
+      }
+    },
+    [addMutation, editedProject, updateMutation]
+  );
+
+  // Resim yükleme ve silme işlemleri için fonksiyonlar
+  const onAddImage = async (imageFile: File) => {
+    // Resim yükleme işlemini burada gerçekleştirin
+  };
+
+  const onDeleteImage = (imageUrl: string) => {
+    // Resim silme işlemini burada gerçekleştirin
   };
 
   return (
@@ -69,8 +83,7 @@ const EditProjectForm: React.FC<EditProjectFormProps> = ({
             >
               Description
             </label>
-            <input
-              type="text"
+            <textarea
               id="description"
               name="description"
               value={editedProject.description || ''}
@@ -78,10 +91,26 @@ const EditProjectForm: React.FC<EditProjectFormProps> = ({
               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm"
             />
           </div>
+          <div className="mt-4">
+            <label
+              htmlFor="subtitle"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Subtitle
+            </label>
+            <input
+              type="text"
+              id="subtitle"
+              name="subtitle"
+              value={editedProject.subtitle || ''}
+              onChange={handleChange}
+              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm"
+            />
+          </div>
           <ImageManagement
             images={editedProject.images}
-            onAddImage={() => {}}
-            onDeleteImage={() => {}}
+            onAddImage={onAddImage}
+            onDeleteImage={onDeleteImage}
           />
           <div className="mt-4 flex justify-end">
             <button

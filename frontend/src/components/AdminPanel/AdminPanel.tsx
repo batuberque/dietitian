@@ -47,7 +47,7 @@ const AdminPanel: React.FC = () => {
       <h1 className="text-2xl font-bold mb-4">Admin Panel</h1>
       <button
         onClick={handleAddNewProject}
-        className="bg-green-500 text-white px-3 py-1 rounded mb-4"
+        className="bg-gray-500 text-white px-3 py-1 rounded mb-4"
       >
         Proje Ekle
       </button>
@@ -66,7 +66,7 @@ const AdminPanel: React.FC = () => {
             <h2 className="font-bold">{project.name}</h2>
             {project.images[0] && (
               <img
-                src={project.images[0]}
+                src={`http://localhost:5173/${project.images[0]}`}
                 alt={`Preview of ${project.name}`}
                 className="w-full h-32 object-cover rounded mt-2"
               />

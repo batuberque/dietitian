@@ -1,6 +1,6 @@
 const { projectService } = require("../services");
-
 const router = require("express").Router();
+const upload = require("../lib/multerConfig");
 
 router.get("/", async (req, res) => {
   try {
@@ -12,9 +12,20 @@ router.get("/", async (req, res) => {
 });
 
 // Yeni Proje Ekleme - POST
-router.post("/", async (req, res) => {
+router.post("/", upload.array("images", 10), async (req, res) => {
   try {
-    const project = await projectService.insert(req.body);
+    const projectData = {
+      ...req.body,
+      images: req.files.map((file) => file.path),
+    };
+
+    console.log(
+      "selamın aleyküm",
+      req.files.map((file) => file.path)
+    );
+    console.log("projectData", projectData);
+
+    const project = await projectService.insert(projectData);
     res.status(201).json(project);
   } catch (err) {
     res.status(400).json({ message: err.message });
