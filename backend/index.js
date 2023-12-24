@@ -11,6 +11,7 @@ const contactRouter = require("./routes/contact");
 const projectRouter = require("./routes/project");
 
 const app = express();
+app.use("/uploads", express.static("uploads"));
 app.use(bodyParser.json());
 app.use(cors());
 

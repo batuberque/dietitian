@@ -27,7 +27,6 @@ const ImageManagement: React.FC<ImageManagementProps> = ({
         setSelectedImage(imageFile);
       } else {
         alert('Lütfen bir PNG, JPG veya JPEG dosyası seçin.');
-        // Bu kısımda kullanıcıya daha gelişmiş bir hata mesajı göstermek için özel bir UI bileşeni kullanabilirsiniz.
       }
     }
   };

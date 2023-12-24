@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axiosInstance from './axios';
 import { useMutation } from '@tanstack/react-query';
 
@@ -54,6 +56,7 @@ export interface IProject {
   images: string[];
   description?: string;
   subtitle?: string;
+  [key: string]: any;
 }
 
 export const fetchProjects = async (): Promise<IProject[]> => {
@@ -62,7 +65,23 @@ export const fetchProjects = async (): Promise<IProject[]> => {
 };
 
 export const addProject = async (projectData: IProject): Promise<IProject> => {
-  const response = await axiosInstance.post<IProject>('/project', projectData);
+  const formData = new FormData();
+  for (const key in projectData) {
+    if (Array.isArray(projectData[key])) {
+      (projectData[key] as string[]).forEach((item) =>
+        formData.append(key, item)
+      );
+    } else if (projectData[key] !== undefined) {
+      formData.append(key, projectData[key]);
+    }
+  }
+
+  const response = await axiosInstance.post<IProject>('/project', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+
   return response.data;
 };
 
@@ -70,10 +89,25 @@ export const updateProject = async (
   projectId: string,
   projectData: IProject
 ): Promise<IProject> => {
+  const formData = new FormData();
+  Object.keys(projectData).forEach((key) => {
+    if (key === 'images' && Array.isArray(projectData.images)) {
+      projectData.images.forEach((image) => formData.append('images', image));
+    } else {
+      formData.append(key, projectData[key]);
+    }
+  });
+
   const response = await axiosInstance.put<IProject>(
     `/project/${projectId}`,
-    projectData
+    formData,
+    {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    }
   );
+
   return response.data;
 };
 
