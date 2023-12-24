@@ -57,7 +57,7 @@ router.delete("/:id", async (req, res) => {
 // Projeyi İsme Göre Bulma - GET
 router.get("/project/:projectId", async (req, res) => {
   try {
-    const project = await projectService.find(req.params.projectId);
+    const project = await projectService.find(req.params.projectId); //burada hata var buraya bak
     if (!project) return res.status(404).json({ message: "Project not found" });
     res.json(project);
   } catch (err) {
