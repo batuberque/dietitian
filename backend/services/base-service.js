@@ -38,6 +38,15 @@ class BaseService {
   async updateMany(query, updateObject) {
     return this.model.updateMany(query, updateObject);
   }
+
+  async updateImages(id, imagePaths) {
+    const object = await this.find(id);
+    if (!object) return null;
+
+    object.images = imagePaths;
+    await object.save();
+    return object;
+  }
 }
 
 module.exports = BaseService;

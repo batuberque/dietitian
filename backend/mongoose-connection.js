@@ -1,12 +1,9 @@
 const mongoose = require("mongoose");
 
 const connectionUrl =
-  process.env.MONGODB_CONNECTION_STRING || "mongodb://localhost/construction";
+  process.env.MONGODB_CONNECTION_STRING || "mongodb://mongodb/construction";
 
-mongoose.connect(connectionUrl, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(connectionUrl);
 
 var db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
