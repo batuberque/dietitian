@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 import React, { useState } from 'react';
-import { useQuery, useMutation } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { fetchProjects, deleteProject, IProject } from '../../services/queries';
-import EditProjectForm from './EditProjectForm';
+import ProjectModal from './ProjectModal';
+import { LoadingFullscreen } from '../Loading/LoadingComponent';
 
 const AdminPanel: React.FC = () => {
   const {
@@ -10,56 +12,32 @@ const AdminPanel: React.FC = () => {
     isLoading,
     isError,
     refetch,
-  } = useQuery(['projects'], fetchProjects);
-  const deleteMutation = useMutation(deleteProject, {
-    onSuccess: () => refetch(),
-  });
-
+  } = useQuery<IProject[], Error>(['projects'], fetchProjects);
   const [selectedProject, setSelectedProject] = useState<IProject | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-  const handleSelectProject = (project: IProject) => {
+  const openModal = (project: IProject | null) => {
     setSelectedProject(project);
     setIsModalOpen(true);
   };
 
-  const handleAddNewProject = () => {
-    const newProject: IProject = {
-      _id: '',
-      name: '',
-      description: '',
-      images: [],
-      subtitle: '',
-    };
-    setSelectedProject(newProject);
-    setIsModalOpen(true);
+  const handleDelete = async (id: string) => {
+    await deleteProject(id);
+    refetch();
   };
 
-  const handleDeleteProject = (projectId: string) => {
-    deleteMutation.mutate(projectId);
-  };
-
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Error loading projects</div>;
+  if (isLoading) return <LoadingFullscreen />;
+  if (isError) return <p>Error loading projects</p>;
 
   return (
     <div className="container mx-auto p-4 pt-10">
-      <h1 className="text-2xl font-bold mb-4">Admin Panel</h1>
+      <h1 className="text-2xl font-bold mb-4 pt-10">Admin Panel</h1>
       <button
-        onClick={handleAddNewProject}
         className="bg-gray-500 text-white px-3 py-1 rounded mb-4"
+        onClick={() => openModal(null)}
       >
         Proje Ekle
       </button>
-      {isModalOpen && selectedProject && (
-        <EditProjectForm
-          project={selectedProject}
-          onClose={() => {
-            setIsModalOpen(false);
-            refetch();
-          }}
-        />
-      )}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {projects?.map((project) => (
           <div key={project._id} className="bg-white p-4 rounded-lg shadow">
@@ -75,13 +53,13 @@ const AdminPanel: React.FC = () => {
             <div className="flex justify-between items-center mt-4">
               <button
                 className="bg-blue-500 text-white px-3 py-1 rounded"
-                onClick={() => handleSelectProject(project)}
+                onClick={() => openModal(project)}
               >
                 Düzenle
               </button>
               <button
                 className="bg-red-500 text-white px-3 py-1 rounded"
-                onClick={() => handleDeleteProject(project._id)}
+                onClick={() => handleDelete(project._id)}
               >
                 Sil
               </button>
@@ -89,6 +67,13 @@ const AdminPanel: React.FC = () => {
           </div>
         ))}
       </div>
+      {isModalOpen && (
+        <ProjectModal
+          project={selectedProject}
+          onClose={() => setIsModalOpen(false)}
+          onProjectUpdate={refetch}
+        />
+      )}
     </div>
   );
 };

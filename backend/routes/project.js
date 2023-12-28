@@ -2,6 +2,7 @@ const { projectService } = require("../services");
 const router = require("express").Router();
 const upload = require("../lib/multerConfig");
 
+// Tüm Projeleri Listeleme - GET
 router.get("/", async (req, res) => {
   try {
     const projects = await projectService.load();
@@ -18,12 +19,6 @@ router.post("/", upload.array("images", 10), async (req, res) => {
       ...req.body,
       images: req.files.map((file) => file.path),
     };
-
-    console.log(
-      "selamın aleyküm",
-      req.files.map((file) => file.path)
-    );
-    console.log("projectData", projectData);
 
     const project = await projectService.insert(projectData);
     res.status(201).json(project);
@@ -53,11 +48,10 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-// Ekstra Route'lar (örneğin, isme göre arama)
-// Projeyi İsme Göre Bulma - GET
-router.get("/project/:projectId", async (req, res) => {
+// Projeyi ID'sine Göre Bulma - GET
+router.get("/:id", async (req, res) => {
   try {
-    const project = await projectService.find(req.params.projectId); //burada hata var buraya bak
+    const project = await projectService.findByProjectId(req.params.id);
     if (!project) return res.status(404).json({ message: "Project not found" });
     res.json(project);
   } catch (err) {

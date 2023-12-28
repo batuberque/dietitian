@@ -34,6 +34,10 @@ class BaseService {
   async findBy(property, value) {
     return this.model.find({ [property]: value });
   }
+
+  async updateMany(query, updateObject) {
+    return this.model.updateMany(query, updateObject);
+  }
 }
 
 module.exports = BaseService;
