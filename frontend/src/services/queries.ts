@@ -132,7 +132,9 @@ export const deleteProjectImage = async (
 
   console.log(
     'response',
-    await axiosInstance.delete<{ message: string }>(`/uploads/${imageName}`)
+    await axiosInstance.delete<{ status: number; message: string }>(
+      `/uploads/${imageName}`
+    )
   );
 
   const response = await axiosInstance.delete<{
