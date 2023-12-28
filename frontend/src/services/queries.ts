@@ -82,16 +82,17 @@ export const createProject = async (
 };
 
 // Update an existing project
+// Update an existing project with FormData
 export const updateProject = async (
   id: string,
-  projectData: IProject
+  projectData: FormData
 ): Promise<IProject> => {
   const response = await axiosInstance.put<IProject>(
     `/project/${id}`,
     projectData,
     {
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'multipart/form-data',
       },
     }
   );
@@ -120,26 +121,15 @@ export const getProjectImageUrls = (project: IProject): string[] => {
 };
 
 export const deleteProjectImage = async (
-  imageUrl: string
+  projectId: string,
+  imageName: string
 ): Promise<{
   status: number;
   message: string;
 }> => {
-  const imageName = imageUrl.split('/uploads/').pop();
-  if (!imageName) {
-    throw new Error('Invalid image URL');
-  }
-
-  console.log(
-    'response',
-    await axiosInstance.delete<{ status: number; message: string }>(
-      `/uploads/${imageName}`
-    )
-  );
-
   const response = await axiosInstance.delete<{
     status: number;
     message: string;
-  }>(`/uploads/${imageName}`);
+  }>(`/project/${projectId}/images/${imageName}`);
   return response.data;
 };
