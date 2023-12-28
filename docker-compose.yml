@@ -10,9 +10,7 @@ services:
     depends_on:
       - backend
     environment:
-      - VITE_REACT_APP_BACKEND_URL=http://localhost:3005
-    networks:
-      - app-network
+      VITE_REACT_APP_BACKEND_URL: "http://localhost:3005"
     volumes:
       - ./frontend:/app
       - /app/node_modules
@@ -25,25 +23,17 @@ services:
     ports:
       - "3005:3005"
     environment:
-      - MONGODB_CONNECTION_STRING=mongodb://mongodb/construction
+      MONGODB_CONNECTION_STRING: "mongodb://mongodb/construction"
     env_file:
       - ./backend/.env
     depends_on:
       - mongodb
-    networks:
-      - app-network
     volumes:
       - ./backend/uploads:/app/uploads
 
   mongodb:
     image: mongo:4.2
     ports:
-      - "27017:27017"
+      - "37017:27017"
     volumes:
       - ./data:/data/db
-    networks:
-      - app-network
-
-networks:
-  app-network:
-    driver: bridge
