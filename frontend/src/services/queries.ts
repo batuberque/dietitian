@@ -1,5 +1,5 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import axiosInstance from './axios';
 import { useMutation } from '@tanstack/react-query';
 
@@ -51,12 +51,11 @@ export const useLoginUser = () => {
 
 // PROJECT QUERIES
 export interface IProject {
-  _id: string;
+  _id?: string;
   name: string;
   images: string[];
   description?: string;
   subtitle?: string;
-  [key: string]: any;
 }
 
 export const fetchProjects = async (): Promise<IProject[]> => {
@@ -64,53 +63,81 @@ export const fetchProjects = async (): Promise<IProject[]> => {
   return response.data;
 };
 
-export const addProject = async (projectData: IProject): Promise<IProject> => {
-  const formData = new FormData();
-  for (const key in projectData) {
-    if (Array.isArray(projectData[key])) {
-      (projectData[key] as string[]).forEach((item) =>
-        formData.append(key, item)
-      );
-    } else if (projectData[key] !== undefined) {
-      formData.append(key, projectData[key]);
-    }
-  }
+// Fetch a single project by ID
+export const fetchProjectById = async (id: string): Promise<IProject> => {
+  const response = await axiosInstance.get<IProject>(`/project/${id}`);
+  return response.data;
+};
 
-  const response = await axiosInstance.post<IProject>('/project', formData, {
+// Create a new project
+export const createProject = async (
+  projectData: FormData
+): Promise<IProject> => {
+  const response = await axiosInstance.post<IProject>('/project', projectData, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
   });
-
   return response.data;
 };
 
+// Update an existing project
 export const updateProject = async (
-  projectId: string,
+  id: string,
   projectData: IProject
 ): Promise<IProject> => {
-  const formData = new FormData();
-  Object.keys(projectData).forEach((key) => {
-    if (key === 'images' && Array.isArray(projectData.images)) {
-      projectData.images.forEach((image) => formData.append('images', image));
-    } else {
-      formData.append(key, projectData[key]);
-    }
-  });
-
   const response = await axiosInstance.put<IProject>(
-    `/project/${projectId}`,
-    formData,
+    `/project/${id}`,
+    projectData,
     {
       headers: {
-        'Content-Type': 'multipart/form-data',
+        'Content-Type': 'application/json',
       },
     }
   );
-
   return response.data;
 };
 
-export const deleteProject = async (projectId: string): Promise<void> => {
-  await axiosInstance.delete(`/project/${projectId}`);
+// Delete a project
+export const deleteProject = async (
+  id: string
+): Promise<{ message: string }> => {
+  const response = await axiosInstance.delete<{ message: string }>(
+    `/project/${id}`
+  );
+  return response.data;
+};
+
+// Bu fonksiyon, projenin resimlerine ait tam URL'leri döndürür
+export const getProjectImageUrls = (project: IProject): string[] => {
+  console.log(
+    'GET PROJECT IMAGE URLS',
+    project.images.map((image) => `${axiosInstance.defaults.baseURL}/${image}`)
+  );
+  return project.images.map(
+    (image) => `${axiosInstance.defaults.baseURL}/${image}`
+  );
+};
+
+export const deleteProjectImage = async (
+  imageUrl: string
+): Promise<{
+  status: number;
+  message: string;
+}> => {
+  const imageName = imageUrl.split('/uploads/').pop();
+  if (!imageName) {
+    throw new Error('Invalid image URL');
+  }
+
+  console.log(
+    'response',
+    await axiosInstance.delete<{ message: string }>(`/uploads/${imageName}`)
+  );
+
+  const response = await axiosInstance.delete<{
+    status: number;
+    message: string;
+  }>(`/uploads/${imageName}`);
+  return response.data;
 };

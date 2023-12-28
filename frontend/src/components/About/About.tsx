@@ -47,7 +47,7 @@ const About = () => {
             ekleyin.]
           </p>
         </div>
-        <div className="lg:w-1/2 lg:pl-10 mt-5">
+        <div className="lg:w-1/2 lg:pl-10 mt-5 pb-5">
           <img
             src="/assets/1.jpg"
             alt="TORA VİNÇ İNŞAAT"
