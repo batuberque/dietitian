@@ -49,7 +49,7 @@ const AdminPanel: React.FC = () => {
                 className="w-full h-32 object-cover rounded mt-2"
               />
             )}
-            <p className="text-sm mt-2">{project.description}</p>
+            <p className="text-sm mt-2 line-clamp-2">{project.description}</p>
             <div className="flex justify-between items-center mt-4">
               <button
                 className="bg-blue-500 text-white px-3 py-1 rounded"

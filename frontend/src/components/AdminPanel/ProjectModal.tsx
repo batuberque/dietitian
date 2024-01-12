@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   createProject,
   updateProject,
@@ -21,81 +21,68 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
   onProjectUpdate,
 }) => {
   const [projectData, setProjectData] = useState<IProject>({
-    name: '',
-    description: '',
-    subtitle: '',
-    images: [],
+    name: project?.name || '',
+    description: project?.description || '',
+    subtitle: project?.subtitle || '',
+    images: project?.images || [],
   });
   const [files, setFiles] = useState<File[]>([]);
   const [previewUrls, setPreviewUrls] = useState<string[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     if (project) {
-      setProjectData(project);
       setPreviewUrls(getProjectImageUrls(project));
-    } else {
-      setProjectData({ name: '', description: '', subtitle: '', images: [] });
-      setPreviewUrls([]);
     }
   }, [project]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      const selectedFiles = Array.from(e.target.files);
-      const newFiles = files.concat(selectedFiles).slice(0, 10);
-      setFiles(newFiles);
+      const fileArray = Array.from(e.target.files);
+      setFiles([...files, ...fileArray]);
 
-      const newPreviewUrls = newFiles.map((file) => URL.createObjectURL(file));
-      setPreviewUrls([...previewUrls, ...newPreviewUrls].slice(0, 10));
+      const fileUrls = fileArray.map((file) => URL.createObjectURL(file));
+      setPreviewUrls([...previewUrls, ...fileUrls]);
     }
   };
 
-  const removeFile = async (index: number) => {
-    const removedFileUrl = previewUrls[index];
+  const removeFile = (index: number) => {
+    const updatedFiles = [...files];
+    updatedFiles.splice(index, 1);
+    setFiles(updatedFiles);
+
+    const updatedUrls = [...previewUrls];
+    updatedUrls.splice(index, 1);
+    setPreviewUrls(updatedUrls);
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
+
+    const formData = new FormData();
+    files.forEach((file) => {
+      formData.append('images', file);
+    });
+
+    formData.append('name', projectData.name || '');
+    formData.append('subtitle', projectData.subtitle || '');
+    formData.append('description', projectData.description || '');
 
     try {
-      const response = await deleteProjectImage(removedFileUrl);
-      if (response.status === 200) {
-        const newFiles = [...files];
-        newFiles.splice(index, 1);
-        setFiles(newFiles);
-
-        const newPreviewUrls = [...previewUrls];
-        newPreviewUrls.splice(index, 1);
-        setPreviewUrls(newPreviewUrls);
+      if (project) {
+        await updateProject(project._id, formData);
       } else {
-        console.error('Server responded with an error:', response);
-      }
-    } catch (error) {
-      console.error('Error deleting image:', error);
-    }
-  };
-
-  const handleSubmit = useCallback(
-    async (e: React.FormEvent) => {
-      e.preventDefault();
-
-      if (project && project._id) {
-        const updatedProjectData = {
-          name: projectData.name,
-          description: projectData.description,
-          subtitle: projectData.subtitle,
-          images: projectData.images,
-        };
-        await updateProject(project._id, updatedProjectData);
-      } else {
-        const formData = new FormData();
-        formData.append('name', projectData.name);
-        formData.append('description', projectData.description || '');
-        formData.append('subtitle', projectData.subtitle || '');
-        files.forEach((file) => formData.append('images', file));
         await createProject(formData);
       }
+      setLoading(false);
       onProjectUpdate();
       onClose();
-    },
-    [files, onClose, onProjectUpdate, project, projectData]
-  );
+    } catch (error) {
+      setLoading(false);
+      console.error('Error updating or creating project:', error);
+    }
+  };
 
   return (
     <div className="fixed inset-0 bg-gray-600 bg-opacity-75 flex justify-center items-center p-4 mt-10">
@@ -203,9 +190,10 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
             <div className="flex justify-between">
               <button
                 type="submit"
+                disabled={loading}
                 className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
               >
-                Kaydet
+                {loading ? 'Kaydediliyor...' : 'Kaydet'}
               </button>
               {project && (
                 <button
