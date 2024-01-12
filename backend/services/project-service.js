@@ -1,5 +1,7 @@
 const BaseService = require("./base-service");
 const Project = require("../models/project");
+const path = require("path");
+const fs = require("fs");
 
 class ProjectService extends BaseService {
   async findByProjectName(name) {
@@ -14,11 +16,38 @@ class ProjectService extends BaseService {
     return this.query({ images: { $in: [imageId] } });
   }
 
-  async removeImageFromProject(imagePath) {
-    return this.updateMany(
-      { images: imagePath },
-      { $pull: { images: { $in: [imagePath] } } }
-    );
+  async removeImage(imagePath) {
+    try {
+      const sanitizedImagePath = imagePath.replace(/uploads\/?/, "");
+      const filePath = path.join(__dirname, "../uploads", sanitizedImagePath);
+      console.log("filepath", filePath);
+
+      if (fs.existsSync(filePath)) {
+        fs.unlinkSync(filePath);
+      }
+    } catch (err) {
+      console.error("Error deleting image from filesystem:", err);
+      throw err;
+    }
+  }
+
+  async removeImageFromProject(projectId, imagePath) {
+    try {
+      console.log("Removing image:", imagePath, "from project:", projectId);
+
+      await this.removeImage(imagePath);
+
+      const updateResult = await this.model.updateOne(
+        { _id: projectId },
+        { $pull: { images: imagePath } }
+      );
+
+      console.log("MongoDB Update Result:", updateResult);
+      return updateResult;
+    } catch (err) {
+      console.error("Error removing image from project:", err);
+      throw err;
+    }
   }
 }
 
