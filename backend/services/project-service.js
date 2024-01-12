@@ -17,7 +17,7 @@ class ProjectService extends BaseService {
   async removeImageFromProject(imagePath) {
     return this.updateMany(
       { images: imagePath },
-      { $pull: { images: imagePath } }
+      { $pull: { images: { $in: [imagePath] } } }
     );
   }
 }

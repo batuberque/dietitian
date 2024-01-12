@@ -34,13 +34,23 @@ router.post("/", upload.array("images", 10), async (req, res) => {
 router.put("/:id", upload.array("images", 10), async (req, res) => {
   try {
     const projectId = req.params.id;
+
+    const existingProject = await projectService.find(projectId);
+
+    if (!existingProject)
+      return res.status(404).json({ message: "Project not found" });
+
+    const images =
+      req.files && req.files.length > 0
+        ? req.files.map((file) => file.path)
+        : existingProject.images;
+
     const projectData = {
       ...req.body,
-      images: req.files.map((file) => file.path),
+      images: images,
     };
 
     const project = await projectService.update(projectId, projectData);
-    if (!project) return res.status(404).json({ message: "Project not found" });
     res.json(project);
   } catch (err) {
     res.status(400).json({ message: err.message });
@@ -89,23 +99,63 @@ router.put("/:id/images", upload.array("images", 10), async (req, res) => {
 router.delete("/:id/images/:imageName", async (req, res) => {
   try {
     const projectId = req.params.id;
-    const imageName = req.params.imageName;
+    const imageName = decodeURIComponent(req.params.imageName).replace(
+      "uploads/",
+      ""
+    );
+    console.log("imageName", imageName);
 
     const project = await projectService.find(projectId);
     if (!project) return res.status(404).json({ message: "Project not found" });
 
-    project.images = project.images.filter((img) => img !== imageName);
+    const updatedImages = project.images.filter((img) => img !== imageName);
+    project.images = updatedImages;
     await project.save();
 
-    const filePath = path.join(__dirname, "../uploads", imageName);
-    if (fs.existsSync(filePath)) {
-      fs.unlinkSync(filePath);
-    }
+    const filePath = path.join(__dirname, "../../uploads", imageName);
+    console.log("filePath", filePath);
 
-    res.json({ message: "Image deleted", project });
+    if (fs.existsSync(filePath)) {
+      fs.unlink(filePath, (err) => {
+        if (err) {
+          console.error(err);
+          return res.status(500).json({ message: "Error deleting file" });
+        }
+
+        res.json({ message: "Image deleted", project });
+      });
+    } else {
+      res.json({ message: "Image not found or already deleted", project });
+    }
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 });
+
+// router.delete("/:id/images/:imageName", async (req, res) => {
+//   try {
+//     const imageName = decodeURIComponent(req.params.imageName).replace(
+//       "uploads/",
+//       ""
+//     );
+//     const filePath = path.join(__dirname, "../../uploads", imageName);
+
+//     await projectService.removeImageFromProject(imageName);
+
+//     if (fs.existsSync(filePath)) {
+//       fs.unlink(filePath, (err) => {
+//         if (err) {
+//           console.error(err);
+//           return res.status(500).json({ message: "Error deleting file" });
+//         }
+//         res.json({ message: "Image deleted successfully" });
+//       });
+//     } else {
+//       res.status(404).json({ message: "Image not found" });
+//     }
+//   } catch (err) {
+//     res.status(500).json({ message: err.message });
+//   }
+// });
 
 module.exports = router;
