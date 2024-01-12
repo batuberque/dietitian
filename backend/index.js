@@ -11,6 +11,11 @@ const projectRouter = require("./routes/project");
 
 const app = express();
 app.use("/uploads", express.static("uploads"));
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+);
 app.use(bodyParser.json());
 app.use(cors());
 

@@ -39,14 +39,14 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const fileArray = Array.from(e.target.files);
-      setFiles([...files, ...fileArray]);
+      setFiles((prevFiles) => [...prevFiles, ...fileArray]);
 
       const fileUrls = fileArray.map((file) => URL.createObjectURL(file));
-      setPreviewUrls([...previewUrls, ...fileUrls]);
+      setPreviewUrls((prevUrls) => [...prevUrls, ...fileUrls]);
     }
   };
-
-  const removeFile = (index: number) => {
+  const removeFile = async (index: number) => {
+    const fileToRemove = files[index];
     const updatedFiles = [...files];
     updatedFiles.splice(index, 1);
     setFiles(updatedFiles);
@@ -54,11 +54,25 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
     const updatedUrls = [...previewUrls];
     updatedUrls.splice(index, 1);
     setPreviewUrls(updatedUrls);
+
+    if (fileToRemove.name) {
+      try {
+        await deleteProjectImage(project?._id, fileToRemove.name);
+      } catch (error) {
+        console.error('Error deleting project image:', error);
+      }
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
+
+    if (!project || !project._id) {
+      console.error('Project ID is undefined. Cannot update the project.');
+      setLoading(false);
+      return;
+    }
 
     const formData = new FormData();
     files.forEach((file) => {
@@ -72,6 +86,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
     try {
       if (project) {
         await updateProject(project._id, formData);
+        throw new Error('project._id BURADA HATA VAR');
       } else {
         await createProject(formData);
       }

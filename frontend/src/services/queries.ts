@@ -51,7 +51,7 @@ export const useLoginUser = () => {
 
 // PROJECT QUERIES
 export interface IProject {
-  _id?: string;
+  _id?: string | undefined;
   name: string;
   images: string[];
   description?: string;
@@ -119,6 +119,7 @@ export const getProjectImageUrls = (project: IProject): string[] => {
   );
 };
 
+// delete url: http://localhost:3005/project/65a12bee34965ed83370041d/images/uploads%2Fimages-1705063864626.PNG
 export const deleteProjectImage = async (
   projectId: string,
   imageName: string
