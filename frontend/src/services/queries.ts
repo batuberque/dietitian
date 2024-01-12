@@ -81,7 +81,6 @@ export const createProject = async (
   return response.data;
 };
 
-// Update an existing project
 // Update an existing project with FormData
 export const updateProject = async (
   id: string,
@@ -126,10 +125,11 @@ export const deleteProjectImage = async (
 ): Promise<{
   status: number;
   message: string;
+  deletedImage: string;
 }> => {
   const response = await axiosInstance.delete<{
     status: number;
     message: string;
   }>(`/project/${projectId}/images/${imageName}`);
-  return response.data;
+  return { ...response.data, deletedImage: imageName };
 };
