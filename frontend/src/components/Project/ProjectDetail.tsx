@@ -1,16 +1,49 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
+/* eslint-disable @typescript-eslint/no-floating-promises */
 import { useParams } from 'react-router-dom';
 import translation from '../transition';
 import { projects } from './projects';
 import NotFound from '../NotFound/NotFound';
 import ImageSlider from '../../lib/ui/imageSlider';
+import { useEffect, useState } from 'react';
+import { IProject, fetchProjectById } from '../../services/queries';
+import axiosInstance from '../../services/axios';
 
 type Params = {
   id: string;
 };
 
 const ProjectDetail: React.FC = () => {
-  const { id } = useParams<Params>();
-  const project = projects.find((p) => p.id === parseInt(id as string));
+  const { id } = useParams<{ id: string | undefined }>();
+  const [project, setProject] = useState<IProject | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const loadProject = async () => {
+      try {
+        const fetchedProject = await fetchProjectById(id);
+        const updatedImages = fetchedProject.images.map(
+          (image) => `${axiosInstance.defaults.baseURL}/${image}`
+        );
+        setProject({ ...fetchedProject, images: updatedImages });
+        setIsLoading(false);
+      } catch (err) {
+        setError('Project could not be fetched');
+        setIsLoading(false);
+      }
+    };
+
+    loadProject();
+  }, [id]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   if (!project) {
     return <NotFound />;

@@ -45,19 +45,23 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
       setPreviewUrls((prevUrls) => [...prevUrls, ...fileUrls]);
     }
   };
-  const removeFile = async (index: number) => {
-    const fileToRemove = files[index];
-    const updatedFiles = [...files];
-    updatedFiles.splice(index, 1);
-    setFiles(updatedFiles);
+  const removeFile = async (index: number, url: string) => {
+    const imageName = url.split('/').pop();
 
-    const updatedUrls = [...previewUrls];
-    updatedUrls.splice(index, 1);
-    setPreviewUrls(updatedUrls);
-
-    if (fileToRemove.name) {
+    if (imageName && project?._id) {
       try {
-        await deleteProjectImage(project?._id, fileToRemove.name);
+        await deleteProjectImage(project._id, imageName);
+
+        // UI'dan resmi kaldır
+        const updatedPreviewUrls = previewUrls.filter(
+          (_, idx) => idx !== index
+        );
+        setPreviewUrls(updatedPreviewUrls);
+
+        const updatedImages = projectData.images.filter(
+          (image) => !image.endsWith(imageName)
+        );
+        setProjectData({ ...projectData, images: updatedImages });
       } catch (error) {
         console.error('Error deleting project image:', error);
       }
@@ -67,12 +71,6 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-
-    if (!project || !project._id) {
-      console.error('Project ID is undefined. Cannot update the project.');
-      setLoading(false);
-      return;
-    }
 
     const formData = new FormData();
     files.forEach((file) => {
@@ -86,7 +84,6 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
     try {
       if (project) {
         await updateProject(project._id, formData);
-        throw new Error('project._id BURADA HATA VAR');
       } else {
         await createProject(formData);
       }
@@ -193,7 +190,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
                   <button
                     type="button"
                     className="absolute top-0 right-0 bg-red-500 text-white p-1 rounded-full"
-                    onClick={() => removeFile(index)}
+                    onClick={() => removeFile(index, url)}
                   >
                     &times;
                   </button>
