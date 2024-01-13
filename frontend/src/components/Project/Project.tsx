@@ -1,8 +1,24 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
+/* eslint-disable @typescript-eslint/no-floating-promises */
 import { Link, Outlet } from 'react-router-dom';
 import translation from '../transition';
 import { projects } from './projects';
+import { useEffect, useState } from 'react';
+import { IProject, fetchProjects } from '../../services/queries';
+import axiosInstance from '../../services/axios';
 
 const Project = () => {
+  const [projects, setProjects] = useState<IProject[]>([]);
+
+  useEffect(() => {
+    const loadProjects = async () => {
+      const fetchedProjects = await fetchProjects();
+      setProjects(fetchedProjects);
+    };
+
+    loadProjects();
+  }, []);
+
   return (
     <div className="flex flex-col min-h-screen mb-5">
       <div className="max-w-7xl mx-auto mt-20 space-y-4 px-4 md:px-6">
@@ -11,10 +27,10 @@ const Project = () => {
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-20">
           {projects.map((project) => (
-            <Link to={`/project/${project.id}`} key={project.id}>
+            <Link to={`/project/${project._id}`} key={project._id}>
               <div className="bg-white rounded-lg shadow-md overflow-hidden">
                 <img
-                  src={project.images[0]}
+                  src={`${axiosInstance.defaults.baseURL}/${project.images[0]}`}
                   alt={project.name}
                   className="w-full h-64 object-cover"
                 />

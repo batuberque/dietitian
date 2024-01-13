@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 import React, { useState } from 'react';
@@ -5,6 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 import { fetchProjects, deleteProject, IProject } from '../../services/queries';
 import ProjectModal from './ProjectModal';
 import { LoadingFullscreen } from '../Loading/LoadingComponent';
+import axiosInstance from '../../services/axios';
 
 const AdminPanel: React.FC = () => {
   const {
@@ -44,7 +46,7 @@ const AdminPanel: React.FC = () => {
             <h2 className="font-bold">{project.name}</h2>
             {project.images[0] && (
               <img
-                src={`http://localhost:3005/${project.images[0]}`}
+                src={`${axiosInstance.defaults.baseURL}/${project.images[0]}`}
                 alt={`Preview of ${project.name}`}
                 className="w-full h-32 object-cover rounded mt-2"
               />

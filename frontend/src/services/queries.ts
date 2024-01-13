@@ -119,7 +119,7 @@ export const getProjectImageUrls = (project: IProject): string[] => {
   );
 };
 
-// delete url: http://localhost:3005/project/65a12bee34965ed83370041d/images/uploads%2Fimages-1705063864626.PNG
+// delete url: http://localhost:3005/project/65a12bee34965ed83370041d/images/uploads/images-1705063864626.PNG
 export const deleteProjectImage = async (
   projectId: string,
   imageName: string
@@ -131,6 +131,6 @@ export const deleteProjectImage = async (
   const response = await axiosInstance.delete<{
     status: number;
     message: string;
-  }>(`/project/${projectId}/images/${imageName}`);
+  }>(`/project/${projectId}/images/uploads/${imageName}`);
   return { ...response.data, deletedImage: imageName };
 };
