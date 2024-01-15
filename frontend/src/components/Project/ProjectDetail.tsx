@@ -1,17 +1,13 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 import { useParams } from 'react-router-dom';
 import translation from '../transition';
-import { projects } from './projects';
 import NotFound from '../NotFound/NotFound';
 import ImageSlider from '../../lib/ui/imageSlider';
 import { useEffect, useState } from 'react';
 import { IProject, fetchProjectById } from '../../services/queries';
 import axiosInstance from '../../services/axios';
-
-type Params = {
-  id: string;
-};
 
 const ProjectDetail: React.FC = () => {
   const { id } = useParams<{ id: string | undefined }>();
@@ -19,17 +15,30 @@ const ProjectDetail: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  console.log('id:', id);
+  console.log('project:', project);
+
   useEffect(() => {
     const loadProject = async () => {
+      if (!id) {
+        setError('Proje ID bulunamadı');
+        setIsLoading(false);
+        return;
+      }
+
       try {
         const fetchedProject = await fetchProjectById(id);
-        const updatedImages = fetchedProject.images.map(
-          (image) => `${axiosInstance.defaults.baseURL}/${image}`
-        );
-        setProject({ ...fetchedProject, images: updatedImages });
-        setIsLoading(false);
+        if (fetchedProject) {
+          const updatedImages = fetchedProject.images.map(
+            (image) => `${axiosInstance.defaults.baseURL}/${image}`
+          );
+          setProject({ ...fetchedProject, images: updatedImages });
+        } else {
+          setError('Proje bulunamadı');
+        }
       } catch (err) {
-        setError('Project could not be fetched');
+        setError('Proje yüklenirken bir hata oluştu');
+      } finally {
         setIsLoading(false);
       }
     };
@@ -38,14 +47,17 @@ const ProjectDetail: React.FC = () => {
   }, [id]);
 
   if (isLoading) {
+    console.log('Loading...');
     return <div>Loading...</div>;
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    console.log('Hata:', error);
+    return <div>Hata: {error}</div>;
   }
 
   if (!project) {
+    console.log('Not Found');
     return <NotFound />;
   }
 

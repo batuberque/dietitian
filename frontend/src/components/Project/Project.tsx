@@ -2,7 +2,6 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 import { Link, Outlet } from 'react-router-dom';
 import translation from '../transition';
-import { projects } from './projects';
 import { useEffect, useState } from 'react';
 import { IProject, fetchProjects } from '../../services/queries';
 import axiosInstance from '../../services/axios';
