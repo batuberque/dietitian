@@ -65,8 +65,9 @@ export const fetchProjects = async (): Promise<IProject[]> => {
 
 // Fetch a single project by ID
 export const fetchProjectById = async (id: string): Promise<IProject> => {
-  const response = await axiosInstance.get<IProject>(`/project/${id}`);
-  return response.data;
+  const response = await axiosInstance.get<IProject[]>(`/project/${id}`);
+  console.log('response', response.data);
+  return response.data[0];
 };
 
 // Create a new project
