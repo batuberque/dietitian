@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 
 import { useMutation } from '@tanstack/react-query';
 import { z } from 'zod';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 import translation from '../transition';
 import useStore from '../../store/useStore';
@@ -13,8 +14,10 @@ import Modal from '../../lib/ui/modal';
 const ContactUs: React.FC = () => {
   const { emailData, setEmailData, contactInfo } = useStore();
 
+  // states
   const [formErrors, setFormErrors] = useState<z.ZodIssue[]>([]);
   const [showModal, setShowModal] = useState(false);
+  const [isCaptchaVerified, setIsCaptchaVerified] = useState(false);
 
   const { mutate } = useMutation<string, Error, Email>(sendEmail);
 
@@ -24,10 +27,19 @@ const ContactUs: React.FC = () => {
     };
   }, []);
 
+  const onCaptchaChange = (value: string | null) => {
+    setIsCaptchaVerified(value !== null);
+  };
+
   const handleSubmitCallBack = useCallback(
     (e: React.FormEvent) => {
       console.log('data', emailData);
       e.preventDefault();
+      if (!isCaptchaVerified) {
+        alert('Lütfen doğrulamayı tamamlayınız.');
+        return;
+      }
+
       try {
         emailValidationSchema.parse(emailData);
         mutate(emailData, {
@@ -45,7 +57,7 @@ const ContactUs: React.FC = () => {
         }
       }
     },
-    [emailData, mutate]
+    [emailData, mutate, isCaptchaVerified]
   );
 
   const findError = (fieldName: string) => {
@@ -107,10 +119,16 @@ const ContactUs: React.FC = () => {
         )}{' '}
         <button
           type="submit"
-          className="w-full p-2 bg-gray-500 text-white rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-opacity-50 transition duration-300 ease-in-out"
+          className="w-full p-2 bg-gray-500 text-white rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-opacity-50 transition duration-300 ease-in-out mb-10"
         >
           E-POSTA GÖNDER
         </button>
+        <div className="captcha flex justify-center">
+          <ReCAPTCHA
+            sitekey={import.meta.env.VITE_CAPTCHA_KEY}
+            onChange={onCaptchaChange}
+          />
+        </div>
       </form>
 
       <div className="max-w-md mx-auto mt-10 space-y-4 px-4 md:px-6 pb-5">

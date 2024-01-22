@@ -14,15 +14,47 @@ const services = [
     icon: 'IoConstruct' as IconType,
     description: 'Güvenilir ve modern vinç kiralama çözümleri.',
   },
+  {
+    id: 3,
+    name: 'Proje Yönetimi',
+    icon: 'IoConstruct' as IconType,
+    description:
+      'Karmaşık inşaat projelerinizde etkin ve verimli proje yönetimi hizmetleri.',
+  },
+  {
+    id: 4,
+    name: 'Arazi Geliştirme ve Araştırma',
+    icon: 'IoConstruct' as IconType,
+    description:
+      'Potansiyel inşaat alanları için arazi analizi ve geliştirme danışmanlığı.',
+  },
+  {
+    id: 5,
+    name: 'Sürdürülebilir İnşaat Çözümleri',
+    icon: 'IoConstruct' as IconType,
+    description: 'Çevre dostu ve enerji verimli inşaat yöntemleri.',
+  },
+  {
+    id: 6,
+    name: 'Güvenlik ve Denetim Hizmetleri',
+    icon: 'IoConstruct' as IconType,
+    description: 'İnşaat alanları için güvenlik denetimi ve risk yönetimi.',
+  },
+  {
+    id: 7,
+    name: 'Ekipman ve Malzeme Tedariki',
+    icon: 'IoConstruct' as IconType,
+    description: 'Kaliteli inşaat malzemeleri ve ekipmanları tedariki.',
+  },
 ];
 
 const Service = () => {
   return (
-    <div className="max-w-md mx-auto mt-20 space-y-4 px-4 md:px-6">
-      <h2 className="text-center text-2xl font-bold text-gray-700 mb-3 shadow-sm font-serif">
+    <div className="max-w-4xl mx-auto mt-20 px-4 md:px-6 pb-5">
+      <h2 className="text-center text-2xl font-bold text-gray-700 mb-6 shadow-sm font-serif">
         HİZMETLERİMİZ
       </h2>
-      <div className="space-y-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {services.map((service) => (
           <div
             key={service.id}
