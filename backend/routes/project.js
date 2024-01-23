@@ -98,23 +98,11 @@ router.delete("/:id/images/*", async (req, res) => {
   try {
     const projectId = req.params.id;
     const imageName = req.params[0];
-    console.log(
-      "Requested to delete image:",
-      imageName,
-      "from project:",
-      projectId
-    );
 
     const project = await projectService.findByProjectId(projectId);
     if (!project) {
       return res.status(404).json({ message: "Project not found" });
     }
-
-    const updateResult = await projectService.removeImageFromProject(
-      projectId,
-      imageName
-    );
-    console.log("Update Result from removeImageFromProject:", updateResult);
 
     const updatedProject = await projectService.findByProjectId(projectId);
 

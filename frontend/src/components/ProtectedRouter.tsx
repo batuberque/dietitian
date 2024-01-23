@@ -11,7 +11,6 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   roleRequired,
 }) => {
   const role = localStorage.getItem('role');
-  console.log('Retrieved role:', role);
 
   if (role !== roleRequired) {
     return <Navigate to="/login" />;

@@ -66,7 +66,6 @@ export const fetchProjects = async (): Promise<IProject[]> => {
 // Fetch a single project by ID
 export const fetchProjectById = async (id: string): Promise<IProject> => {
   const response = await axiosInstance.get<IProject[]>(`/project/${id}`);
-  console.log('response', response.data);
   return response.data[0];
 };
 
@@ -111,10 +110,6 @@ export const deleteProject = async (
 
 // Bu fonksiyon, projenin resimlerine ait tam URL'leri döndürür
 export const getProjectImageUrls = (project: IProject): string[] => {
-  console.log(
-    'GET PROJECT IMAGE URLS',
-    project.images.map((image) => `${axiosInstance.defaults.baseURL}/${image}`)
-  );
   return project.images.map(
     (image) => `${axiosInstance.defaults.baseURL}/${image}`
   );

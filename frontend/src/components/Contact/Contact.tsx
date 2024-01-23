@@ -33,7 +33,6 @@ const ContactUs: React.FC = () => {
 
   const handleSubmitCallBack = useCallback(
     (e: React.FormEvent) => {
-      console.log('data', emailData);
       e.preventDefault();
       if (!isCaptchaVerified) {
         alert('Lütfen doğrulamayı tamamlayınız.');
