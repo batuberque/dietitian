@@ -16,7 +16,7 @@ services:
       - ./frontend:/app
       - /app/node_modules
     env_file:
-      - ./frontend/src/.env
+      - ./frontend/.env
 
   backend:
     image: construction-backend

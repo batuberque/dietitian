@@ -125,7 +125,10 @@ const ContactUs: React.FC = () => {
         </button>
         <div className="captcha flex justify-center">
           <ReCAPTCHA
-            sitekey={import.meta.env.VITE_CAPTCHA_KEY}
+            sitekey={
+              import.meta.env.VITE_CAPTCHA_KEY ||
+              '6LfLklgpAAAAALTVzFaxsH5OwSssLRNpuGdLAofs'
+            }
             onChange={onCaptchaChange}
           />
         </div>
