@@ -30,10 +30,10 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
       <img
         src={images[currentIndex]}
         alt={`${currentIndex + 1}`}
-        className={`w-full h-auto transition-opacity duration-500 ${
+        className={`w-full max-h-screen h-3/5 object-cover transition-opacity duration-500 ${
           isChanging ? 'opacity-0' : 'opacity-100'
         }`}
-      />{' '}
+      />
       <button
         onClick={prevImage}
         className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75"
