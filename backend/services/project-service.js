@@ -20,7 +20,6 @@ class ProjectService extends BaseService {
     try {
       const sanitizedImagePath = imagePath.replace(/uploads\/?/, "");
       const filePath = path.join(__dirname, "../uploads", sanitizedImagePath);
-      console.log("filepath", filePath);
 
       if (fs.existsSync(filePath)) {
         fs.unlinkSync(filePath);
@@ -42,7 +41,6 @@ class ProjectService extends BaseService {
         { $pull: { images: imagePath } }
       );
 
-      console.log("MongoDB Update Result:", updateResult);
       return updateResult;
     } catch (err) {
       console.error("Error removing image from project:", err);

@@ -15,9 +15,6 @@ const ProjectDetail: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  console.log('id:', id);
-  console.log('project:', project);
-
   useEffect(() => {
     const loadProject = async () => {
       if (!id) {
@@ -47,17 +44,14 @@ const ProjectDetail: React.FC = () => {
   }, [id]);
 
   if (isLoading) {
-    console.log('Loading...');
     return <div>Loading...</div>;
   }
 
   if (error) {
-    console.log('Hata:', error);
     return <div>Hata: {error}</div>;
   }
 
   if (!project) {
-    console.log('Not Found');
     return <NotFound />;
   }
 
