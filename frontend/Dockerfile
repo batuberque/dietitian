@@ -1,13 +1,19 @@
-FROM node:18-alpine
+FROM node:18-alpine as builder
 
 WORKDIR /app
 
-COPY package.json package-lock.json ./
+COPY package.json ./
 
 RUN npm install
 
 COPY . .
 
-EXPOSE 5173
+FROM node:18-alpine
+
+WORKDIR /app
+
+COPY --from=builder /app .
+
+EXPOSE 8080
 
 CMD ["npm", "run", "dev"]
