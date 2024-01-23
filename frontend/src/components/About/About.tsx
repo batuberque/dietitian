@@ -49,7 +49,7 @@ const About = () => {
         </div>
         <div className="lg:w-1/2 lg:pl-10 mt-5 pb-5">
           <img
-            src="/assets/1.jpg"
+            src="/assets/y0.jpeg"
             alt="TORA VİNÇ İNŞAAT"
             className="rounded-lg shadow-lg"
           />
