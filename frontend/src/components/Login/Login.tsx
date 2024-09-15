@@ -17,7 +17,7 @@ const Login = () => {
           onSuccess: (data) => {
             localStorage.setItem('token', data.accessToken);
             localStorage.setItem('role', 'editor');
-            console.log('Giriş başarılı');
+            // console.log('Giriş başarılı');
             alert('GİRİŞ BAŞARILI');
             navigate('/admin');
           },

@@ -12,7 +12,13 @@ import { renderIcon } from '../../lib/ui/IconUtils';
 import Modal from '../../lib/ui/modal';
 
 const ContactUs: React.FC = () => {
-  const { emailData, setEmailData, contactInfo } = useStore();
+  const {
+    emailData,
+    setEmailData,
+    contactInfo,
+    captchaToken,
+    setCaptchaToken,
+  } = useStore();
 
   // states
   const [formErrors, setFormErrors] = useState<z.ZodIssue[]>([]);
@@ -28,24 +34,37 @@ const ContactUs: React.FC = () => {
   }, []);
 
   const onCaptchaChange = (value: string | null) => {
-    setIsCaptchaVerified(value !== null);
+    if (value) {
+      setIsCaptchaVerified(true);
+      setCaptchaToken(value);
+    } else {
+      setIsCaptchaVerified(false);
+      setCaptchaToken('');
+    }
   };
 
   const handleSubmitCallBack = useCallback(
-    (e: React.FormEvent) => {
+    (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       if (!isCaptchaVerified) {
         alert('Lütfen doğrulamayı tamamlayınız.');
         return;
       }
 
+      const dataToSend: Email = {
+        ...emailData,
+        captchaToken,
+      };
+
       try {
-        emailValidationSchema.parse(emailData);
-        mutate(emailData, {
+        emailValidationSchema.parse(dataToSend);
+        mutate(dataToSend, {
           onSuccess: () => {
             setShowModal(true);
+            setCaptchaToken('');
           },
-          onError: () => {
+          onError: (error) => {
+            console.error('Error:', error);
             alert('E-mail gönderilirken bir hata oluştu!');
           },
         });
@@ -56,7 +75,7 @@ const ContactUs: React.FC = () => {
         }
       }
     },
-    [emailData, mutate, isCaptchaVerified]
+    [emailData, mutate, isCaptchaVerified, captchaToken, setCaptchaToken]
   );
 
   const findError = (fieldName: string) => {
@@ -126,7 +145,8 @@ const ContactUs: React.FC = () => {
           <ReCAPTCHA
             sitekey={
               import.meta.env.VITE_CAPTCHA_KEY ||
-              '6LfLklgpAAAAALTVzFaxsH5OwSssLRNpuGdLAofs'
+              // '6LeprUIqAAAAAAePdPlK-tmZ4VGn8gO5GtjAc6ip'
+              '6LcrbkQqAAAAAB3T7fl-uAUgJvFT8lYoie8jwhTU'
             }
             onChange={onCaptchaChange}
           />

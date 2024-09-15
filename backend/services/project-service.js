@@ -3,6 +3,10 @@ const Project = require("../models/project");
 const path = require("path");
 const fs = require("fs");
 
+const { Storage } = require("@google-cloud/storage");
+const storage = new Storage({ keyFilename: process.env.GCLOUD_KEY_FILE });
+const bucket = storage.bucket(process.env.GCLOUD_STORAGE_BUCKET);
+
 class ProjectService extends BaseService {
   async findByProjectName(name) {
     return this.findBy("name", name);
@@ -16,32 +20,32 @@ class ProjectService extends BaseService {
     return this.query({ images: { $in: [imageId] } });
   }
 
-  async removeImage(imagePath) {
+  async removeImageFromGCS(imagePath) {
     try {
-      const sanitizedImagePath = imagePath.replace(/uploads\/?/, "");
-      const filePath = path.join(__dirname, "../uploads", sanitizedImagePath);
-
-      if (fs.existsSync(filePath)) {
-        fs.unlinkSync(filePath);
-      }
+      // console.log("Removing image from GCS:", imagePath);
+      const sanitizedImagePath = imagePath.replace(/^uploads\/?/, "");
+      await bucket.file(sanitizedImagePath).delete();
+      // console.log("Image deleted from GCS:", sanitizedImagePath);
     } catch (err) {
-      console.error("Error deleting image from filesystem:", err);
+      console.error("Error deleting image from GCS:", err);
       throw err;
     }
   }
 
   async removeImageFromProject(projectId, imagePath) {
     try {
-      console.log("Removing image:", imagePath, "from project:", projectId);
+      const dbImagePath = imagePath.replace(/^uploads\/uploads\//, "uploads/");
 
-      await this.removeImage(imagePath);
-
-      const updateResult = await this.model.updateOne(
+      await this.model.updateOne(
         { _id: projectId },
-        { $pull: { images: imagePath } }
+        { $pull: { images: dbImagePath } }
       );
 
-      return updateResult;
+      await this.removeImageFromGCS(imagePath);
+
+      // console.log(`Image ${dbImagePath} removed from project ${projectId}`);
+
+      return await this.findByProjectId(projectId);
     } catch (err) {
       console.error("Error removing image from project:", err);
       throw err;
