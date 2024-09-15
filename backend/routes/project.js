@@ -97,14 +97,12 @@ router.put("/:id/images", upload.array("images", 10), async (req, res) => {
 router.delete("/:id/images/*", async (req, res) => {
   try {
     const projectId = req.params.id;
-    const imageName = req.params[0];
+    const imagePath = `uploads/${req.params[0]}`;
 
-    const project = await projectService.findByProjectId(projectId);
-    if (!project) {
-      return res.status(404).json({ message: "Project not found" });
-    }
-
-    const updatedProject = await projectService.findByProjectId(projectId);
+    const updatedProject = await projectService.removeImageFromProject(
+      projectId,
+      imagePath
+    );
 
     res.json({ message: "Image deleted", project: updatedProject });
   } catch (err) {

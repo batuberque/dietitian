@@ -9,6 +9,8 @@ export interface IContactSlice {
     address: string;
     email: string;
   };
+  captchaToken: string;
+  setCaptchaToken: (captchaToken: string) => void;
   resetEmailData: () => void;
 }
 
@@ -20,6 +22,11 @@ export const createContactSlice: StateCreator<IContactSlice> = (set) => ({
     address: 'Beyazevler Mahallesi ,515.Sokak, No:36/2 Gaziemir - İZMİR',
     email: 'toravincinsaat@gmail.com',
   },
+  captchaToken: '',
+  setCaptchaToken: (captchaToken) => set({ captchaToken }),
   resetEmailData: () =>
-    set({ emailData: { email: '', subject: '', message: '' } }),
+    set({
+      emailData: { email: '', subject: '', message: '' },
+      captchaToken: '',
+    }),
 });

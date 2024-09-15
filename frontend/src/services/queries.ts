@@ -8,6 +8,7 @@ export interface Email {
   email: string;
   subject: string;
   message: string;
+  captchaToken?: string;
 }
 
 export const fetchEmails = async (): Promise<Email[]> => {
@@ -16,8 +17,13 @@ export const fetchEmails = async (): Promise<Email[]> => {
 };
 
 export const sendEmail = async (emailData: Email): Promise<string> => {
-  const response = await axiosInstance.post<string>('/contact', emailData);
-  return response.data;
+  try {
+    const response = await axiosInstance.post<string>('/contact', emailData);
+    return response.data;
+  } catch (error) {
+    console.error('Error sending email:', error);
+    throw error;
+  }
 };
 
 export const deleteEmail = async (email: string): Promise<string> => {

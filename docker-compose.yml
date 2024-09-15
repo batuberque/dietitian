@@ -35,6 +35,7 @@ services:
       - ./backend/uploads:/app/uploads
       - ./backend:/app
       - /app/node_modules
+      - ./backend/gloud.json:/app/gloud.json
 
   mongodb:
     image: mongo:4.2
