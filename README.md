@@ -50,6 +50,9 @@ docker-compose down
 docker-compose up --build
 ```
 
+- ./backend/gloud.json:/app/gloud.json
+Kod satırının silinmesi gerekmektedir.
+
 ### Katkıda Bulunma
 
 Projeye katkıda bulunmak isteyenler, pull request göndererek veya sorunlarını GitHub üzerinde belirterek projeye katkıda bulunabilirler.
