@@ -50,6 +50,7 @@ docker-compose down
 docker-compose up --build
 ```
 
+docker-compose.yml dosyası içerisinde,
 - ./backend/gloud.json:/app/gloud.json
 Kod satırının silinmesi gerekmektedir.
 
