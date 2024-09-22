@@ -14,7 +14,7 @@ const projectRouter = require("./routes/project");
 const app = express();
 
 const corsOptions = {
-  origin: process.env.FRONTEND_DOMAIN,
+  origin: [process.env.FRONTEND_DOMAIN, process.env.REAL_DOMAIN],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
   optionSuccessStatus: 200,

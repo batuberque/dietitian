@@ -36,7 +36,7 @@ const Footer: React.FC = () => {
         </div>
 
         <div className="social flex gap-2 sm:gap-4 justify-center items-center">
-          <a
+          {/* <a
             href="https://facebook.com"
             className="text-gray-600 hover:text-gray-800 transition duration-300"
           >
@@ -44,8 +44,8 @@ const Footer: React.FC = () => {
               iconType: 'FaFacebookF',
               sizeClass: 'text-lg sm:text-xl',
             })}
-          </a>
-          <a
+          </a> */}
+          {/* <a
             href="https://twitter.com"
             className="text-gray-600 hover:text-gray-800 transition duration-300"
           >
@@ -53,9 +53,9 @@ const Footer: React.FC = () => {
               iconType: 'FaTwitter',
               sizeClass: 'text-lg sm:text-xl',
             })}
-          </a>
+          </a> */}
           <a
-            href="https://instagram.com"
+            href="https://instagram.com/toravincinsaat"
             className="text-gray-600 hover:text-gray-800 transition duration-300"
           >
             {renderIcon({
