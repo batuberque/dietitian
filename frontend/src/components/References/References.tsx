@@ -16,9 +16,9 @@ const images = [
   { id: 4, src: logo4, alt: 'Şirket Logosu 4' },
   { id: 5, src: logo5, alt: 'Şirket Logosu 5' },
   { id: 6, src: logo6, alt: 'Şirket Logosu 6' },
-  { id: 6, src: logo6, alt: 'Şirket Logosu 6' },
-  { id: 6, src: logo6, alt: 'Şirket Logosu 6' },
-  { id: 6, src: logo6, alt: 'Şirket Logosu 6' },
+  { id: 7, src: logo6, alt: 'Şirket Logosu 6' },
+  { id: 8, src: logo6, alt: 'Şirket Logosu 6' },
+  { id: 9, src: logo6, alt: 'Şirket Logosu 6' },
 ];
 
 const References = () => {
