@@ -1,6 +1,7 @@
 import translation from '../transition';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import ReferenceSlider from '../../lib/ui/referenceSlider';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -20,13 +21,13 @@ const Home = () => {
   return (
     <div className="relative h-screen">
       <img
-        src="/assets/delphi.jpeg"
+        src="/assets/vinc1.jpeg"
         alt="Full Screen Background"
         className="object-cover w-full h-full"
       />
 
       <motion.div
-        className="absolute inset-0 flex flex-col justify-center items-start container mx-auto px-4 md:px-6"
+        className="absolute inset-0 flex flex-col justify-center items-start container mx-auto px-4 md:px-6 mb-20"
         variants={textVariants}
         initial="hidden"
         animate="visible"
@@ -66,6 +67,10 @@ const Home = () => {
           Bizimle İletişime Geçin
         </motion.button>
       </motion.div>
+      <div className="absolute bottom-0 w-full">
+        <ReferenceSlider />
+        <hr className="border-t border-gray-300 w-full" />
+      </div>
     </div>
   );
 };

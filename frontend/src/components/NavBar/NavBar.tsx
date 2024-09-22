@@ -94,13 +94,6 @@ const NavBar: React.FC = () => {
               HAKKIMIZDA
             </Link>
 
-            {/* <Link
-              to={'/vision'}
-              className="block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-gray-800 mr-4 shadow-sm font-serif"
-            >
-              VİZYONUMUZ
-            </Link> */}
-
             <Link
               to={'/project'}
               className="block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-gray-800 mr-4 shadow-sm font-serif"
@@ -112,6 +105,13 @@ const NavBar: React.FC = () => {
               className="block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-gray-800 mr-4 shadow-sm font-serif"
             >
               HİZMETLERİMİZ
+            </Link>
+
+            <Link
+              to={'/references'}
+              className="block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-gray-800 mr-4 shadow-sm font-serif"
+            >
+              REFERANSLAR
             </Link>
 
             <Link

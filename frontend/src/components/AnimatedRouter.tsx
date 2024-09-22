@@ -11,6 +11,7 @@ import NotFound from './NotFound/NotFound';
 import Login from './Login/Login';
 import ProtectedRoute from './ProtectedRouter';
 import AdminPanel from './AdminPanel/AdminPanel';
+import References from './References/References';
 
 const AnimatedRouter = () => {
   const location = useLocation();
@@ -25,6 +26,7 @@ const AnimatedRouter = () => {
           <Route path="/project/:id" element={<ProjectDetail />} />
           <Route path="/service" element={<Service />} />
           <Route path="/about" element={<About />} />
+          <Route path="/references" element={<References />} />
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/login" element={<Login />} />
           <Route
