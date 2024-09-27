@@ -5,9 +5,16 @@ import translation from '../transition';
 import logo1 from '../../assets/abb.png';
 import logo2 from '../../assets/jti.png';
 import logo3 from '../../assets/vestel.png';
-import logo4 from '../../assets/abb.png';
-import logo5 from '../../assets/jti.png';
-import logo6 from '../../assets/vestel.png';
+import logo4 from '../../assets/bosch.png';
+import logo5 from '../../assets/arkas.png';
+import logo6 from '../../assets/delphi.png';
+import logo7 from '../../assets/oetker.png';
+import logo8 from '../../assets/kipa.png';
+import logo9 from '../../assets/hugo-boss.png';
+// import logo10 from '../../assets/mitsubishi_resized.png';
+import logo11 from '../../assets/yorglass_resized.png';
+// import logo10 from '../../assets/yorglass.png';
+// import logo11 from '../../assets/mts.png';
 
 const images = [
   { id: 1, src: logo1, alt: 'Şirket Logosu 1' },
@@ -16,9 +23,11 @@ const images = [
   { id: 4, src: logo4, alt: 'Şirket Logosu 4' },
   { id: 5, src: logo5, alt: 'Şirket Logosu 5' },
   { id: 6, src: logo6, alt: 'Şirket Logosu 6' },
-  { id: 7, src: logo6, alt: 'Şirket Logosu 6' },
-  { id: 8, src: logo6, alt: 'Şirket Logosu 6' },
-  { id: 9, src: logo6, alt: 'Şirket Logosu 6' },
+  { id: 7, src: logo7, alt: 'Şirket Logosu 7' },
+  { id: 8, src: logo8, alt: 'Şirket Logosu 8' },
+  { id: 9, src: logo9, alt: 'Şirket Logosu 9' },
+  // { id: 10, src: logo10, alt: 'Şirket Logosu 10' },
+  { id: 11, src: logo11, alt: 'Şirket Logosu 11' },
 ];
 
 const References = () => {

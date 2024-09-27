@@ -9,43 +9,41 @@ const About = () => {
             HAKKIMIZDA
           </h2>
           <p className="text-gray-700">
-            TORA VİNÇ İNŞAAT, [kuruluş yılı] yılında, inşaat sektöründe
-            yenilikçi ve sürdürülebilir çözümler sunmak amacıyla kurulmuştur.
-            Kaliteli hizmet anlayışı, müşteri odaklı yaklaşımı ve çevre dostu
-            projeleri ile sektörde öncü bir konumda yer almaktadır.
+            TORA VİNÇ İNŞAAT, 2015 yılında İzmir’de kurulmuş, mühendislik ve
+            inşaat sektöründe faaliyet gösteren bir firmadır. Firmamız, kaliteli
+            hizmet anlayışı, müşteri odaklı yaklaşımı ve çevre dostu projeleri
+            ile sektörde öncü bir konumda yer almaktadır. Şirketimizin kurucusu
+            MEHMET TORA, 38 yıllık meslek hayatında birçok önemli projeye imza
+            atmıştır. Ayrıca, şirketimizde inşaat mühendisi olarak görev yapan
+            VATAN BARIŞ TORA, projelerimizin teknik yönetiminde önemli rol
+            oynamaktadır.
           </p>
           <h3 className="text-center text-lg font-bold text-gray-700 shadow-sm font-serif">
             MİSYONUMUZ
           </h3>
           <p className="text-gray-700">
-            Misyonumuz, inşaat sektöründe yüksek standartlarda projeler
-            üreterek, müşteri memnuniyetini en üst düzeye çıkarmak ve çevreye
-            saygılı, sürdürülebilir yapılar inşa etmektir.
+            Misyonumuz, inşaat sektöründe yüksek standartlarda projeler üreterek
+            müşteri memnuniyetini en üst seviyeye çıkarmak, çevreye duyarlı ve
+            sürdürülebilir yapılar inşa etmektir.
           </p>
           <h3 className="text-center text-lg font-bold text-gray-700 mb-1 shadow-sm font-serif">
             DEĞERLERİMİZ
           </h3>
           <ul className="text-gray-700 list-disc pl-5">
-            <li>Yenilikçilik: Sektördeki gelişmeleri yakından takip ederiz.</li>
+            <li>Yenilikçilik: Sektördeki yenilikleri yakından takip ederiz.</li>
             <li>
-              Kalite: Her projemizde en yüksek kalite standartlarını hedefleriz.
+              Kalite: Tüm projelerimizde en yüksek kalite standartlarını
+              hedefleriz.
             </li>
             <li>
-              Sürdürülebilirlik: Çevre dostu uygulamalarla geleceğe katkıda
-              bulunuruz.
+              Sürdürülebilirlik: Çevre dostu uygulamalarla gelecek nesillere
+              katkıda bulunuruz.
             </li>
             <li>
-              Müşteri Memnuniyeti: Müşteri ihtiyaçlarına yönelik hizmetler
-              sunarız.
+              Müşteri Memnuniyeti: Müşteri ihtiyaçlarını her zaman ön planda
+              tutarız.
             </li>
           </ul>
-          <h3 className="text-center text-lg font-bold text-gray-700 mb-1 shadow-sm font-serif">
-            BAŞARILARIMIZ VE PROJELERİMİZ
-          </h3>
-          <p className="text-gray-700">
-            [Başarılarınız ve öne çıkan projeleriniz hakkında detaylı bilgi
-            ekleyin.]
-          </p>
         </div>
         <div className="lg:w-1/2 lg:pl-10 mt-5 pb-5">
           <img
