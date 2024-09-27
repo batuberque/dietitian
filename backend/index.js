@@ -1,6 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const compression = require("compression");
+const helmet = require("helmet");
 
 require("./mongoose-connection");
 require("dotenv").config();
@@ -12,6 +14,9 @@ const contactRouter = require("./routes/contact");
 const projectRouter = require("./routes/project");
 
 const app = express();
+
+app.use(helmet());
+app.use(compression());
 
 const corsOptions = {
   origin: [process.env.FRONTEND_DOMAIN, process.env.REAL_DOMAIN],
