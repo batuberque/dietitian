@@ -54,7 +54,6 @@ const AnimatedRouter = () => {
                   animate="animate"
                   exit="exit"
                   transition={{ duration: 0.5, ease: 'easeInOut' }}
-                  style={{ position: 'absolute', width: '100%' }}
                 >
                   <Vision />
                 </motion.div>
@@ -73,7 +72,6 @@ const AnimatedRouter = () => {
                   animate="animate"
                   exit="exit"
                   transition={{ duration: 0.5, ease: 'easeInOut' }}
-                  style={{ position: 'absolute', width: '100%' }}
                 >
                   <Project />
                 </motion.div>
@@ -92,7 +90,6 @@ const AnimatedRouter = () => {
                   animate="animate"
                   exit="exit"
                   transition={{ duration: 0.5, ease: 'easeInOut' }}
-                  style={{ position: 'absolute', width: '100%' }}
                 >
                   <ProjectDetail />
                 </motion.div>
@@ -111,7 +108,6 @@ const AnimatedRouter = () => {
                   animate="animate"
                   exit="exit"
                   transition={{ duration: 0.5, ease: 'easeInOut' }}
-                  style={{ position: 'absolute', width: '100%' }}
                 >
                   <Service />
                 </motion.div>
@@ -130,7 +126,6 @@ const AnimatedRouter = () => {
                   animate="animate"
                   exit="exit"
                   transition={{ duration: 0.5, ease: 'easeInOut' }}
-                  style={{ position: 'absolute', width: '100%' }}
                 >
                   <About />
                 </motion.div>
@@ -149,7 +144,6 @@ const AnimatedRouter = () => {
                   animate="animate"
                   exit="exit"
                   transition={{ duration: 0.5, ease: 'easeInOut' }}
-                  style={{ position: 'absolute', width: '100%' }}
                 >
                   <References />
                 </motion.div>
@@ -168,7 +162,6 @@ const AnimatedRouter = () => {
                   animate="animate"
                   exit="exit"
                   transition={{ duration: 0.5, ease: 'easeInOut' }}
-                  style={{ position: 'absolute', width: '100%' }}
                 >
                   <ContactUs />
                 </motion.div>
@@ -187,7 +180,6 @@ const AnimatedRouter = () => {
                   animate="animate"
                   exit="exit"
                   transition={{ duration: 0.5, ease: 'easeInOut' }}
-                  style={{ position: 'absolute', width: '100%' }}
                 >
                   <Login />
                 </motion.div>
@@ -207,7 +199,6 @@ const AnimatedRouter = () => {
                     animate="animate"
                     exit="exit"
                     transition={{ duration: 0.5, ease: 'easeInOut' }}
-                    style={{ position: 'absolute', width: '100%' }}
                   >
                     <AdminPanel />
                   </motion.div>
@@ -227,7 +218,6 @@ const AnimatedRouter = () => {
                   animate="animate"
                   exit="exit"
                   transition={{ duration: 0.5, ease: 'easeInOut' }}
-                  style={{ position: 'absolute', width: '100%' }}
                 >
                   <NotFound />
                 </motion.div>
