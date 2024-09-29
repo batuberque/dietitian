@@ -196,4 +196,4 @@ const ContactUs: React.FC = () => {
   );
 };
 
-export default translation(ContactUs);
+export default ContactUs;

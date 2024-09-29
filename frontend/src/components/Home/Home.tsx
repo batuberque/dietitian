@@ -55,7 +55,7 @@ const Home = () => {
           className="text-white text-lg md:text-xl mb-8 hover:text-gray-200"
           whileHover={{ scale: 1.03 }}
         >
-          Yüksek kaliteli ve güvenilir inşaat ve vinç hizmetleri sunuyoruz.
+          Yüksek kaliteli, güvenilir inşaat ve vinç hizmetleri sunuyoruz.
         </motion.p>
 
         <motion.button
@@ -75,4 +75,4 @@ const Home = () => {
   );
 };
 
-export default translation(Home);
+export default Home;

@@ -74,4 +74,4 @@ const Service = () => {
   );
 };
 
-export default translation(Service);
+export default Service;
