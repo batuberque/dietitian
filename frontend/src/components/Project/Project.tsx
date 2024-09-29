@@ -51,4 +51,4 @@ const Project = () => {
   );
 };
 
-export default translation(Project);
+export default Project;

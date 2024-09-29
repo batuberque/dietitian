@@ -12,7 +12,7 @@ import logo7 from '../../assets/oetker.png';
 import logo8 from '../../assets/kipa.png';
 import logo9 from '../../assets/hugo-boss.png';
 import logo11 from '../../assets/yorglass_resized.png';
-import logo12 from '../../assets/mitsubisi_resized.png';
+// import logo12 from '../../assets/mitsubisi_resized.png';
 import logo13 from '../../assets/izeltas_resized-removebg-preview.png';
 import logo14 from '../../assets/msbinsaat_resized-removebg-preview.png';
 import logo16 from '../../assets/keinsaat_resized-removebg-preview.png';
@@ -20,7 +20,7 @@ import logo17 from '../../assets/cms_resized-removebg-preview.png';
 
 const images = [
   { id: 16, src: logo16, alt: 'Şirket Logosu 16' },
-  { id: 12, src: logo12, alt: 'Şirket Logosu 12' },
+  // { id: 12, src: logo12, alt: 'Şirket Logosu 12' },
   { id: 1, src: logo1, alt: 'Şirket Logosu 1' },
   { id: 2, src: logo2, alt: 'Şirket Logosu 2' },
   { id: 3, src: logo3, alt: 'Şirket Logosu 3' },
@@ -57,4 +57,4 @@ const References = () => {
   );
 };
 
-export default translation(References);
+export default References;

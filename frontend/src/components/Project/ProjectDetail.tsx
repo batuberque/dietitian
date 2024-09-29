@@ -71,4 +71,4 @@ const ProjectDetail: React.FC = () => {
   );
 };
 
-export default translation(ProjectDetail);
+export default ProjectDetail;

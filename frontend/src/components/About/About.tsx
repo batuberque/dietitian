@@ -57,4 +57,4 @@ const About = () => {
   );
 };
 
-export default translation(About);
+export default About;

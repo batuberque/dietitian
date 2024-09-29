@@ -4,6 +4,8 @@ import { BrowserRouter } from 'react-router-dom';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from './services/query-client';
 
+import './index.css';
+
 const NavBar = lazy(() => import('./components/NavBar/NavBar'));
 const Footer = lazy(() => import('./components/Footer/Footer'));
 const AnimatedRouter = lazy(() => import('./components/AnimatedRouter'));

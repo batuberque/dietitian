@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { fetchProjects, deleteProject, IProject } from '../../services/queries';
 import ProjectModal from './ProjectModal';
-import { LoadingFullscreen } from '../Loading/LoadingComponent';
+import LoadingFullscreen from '../Loading/LoadingComponent';
 import axiosInstance from '../../services/axios';
 
 const AdminPanel: React.FC = () => {

@@ -32,4 +32,4 @@ const Vision = () => {
   );
 };
 
-export default translation(Vision);
+export default Vision;

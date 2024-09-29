@@ -75,4 +75,4 @@ const Home = () => {
   );
 };
 
-export default translation(Home);
+export default Home;
