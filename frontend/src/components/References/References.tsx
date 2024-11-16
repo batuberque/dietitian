@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React from 'react';
-import translation from '../transition';
 
 import logo1 from '../../assets/abb.png';
 import logo2 from '../../assets/jti.png';
