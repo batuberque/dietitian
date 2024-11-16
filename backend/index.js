@@ -15,7 +15,9 @@ const projectRouter = require("./routes/project");
 
 const app = express();
 
-app.use(helmet());
+app.use(helmet({
+  crossOriginResourcePolicy: false,
+}));
 app.use(compression());
 
 const corsOptions = {
@@ -26,7 +28,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-app.use("/uploads", express.static("uploads"));
+app.use("/uploads", cors(corsOptions), helmet.crossOriginResourcePolicy({ policy: "cross-origin" }), express.static("uploads"));
 app.use(
   bodyParser.urlencoded({
     extended: true,
